@@ -2,8 +2,10 @@ import React, {useEffect} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
 import {StatusBar} from 'react-native';
+
 import WelcomeScreen from './app/screens/WelcomeScreen';
 import colors from './app/config/colors';
+import LoginScreen from './app/screens/LoginScreen';
 
 const App = () => {
   useEffect(() => {
@@ -15,6 +17,7 @@ const App = () => {
     colors: {
       ...DefaultTheme.colors,
       primary: colors.primary,
+      accent: colors.secondary,
     },
   };
   return (
@@ -24,7 +27,7 @@ const App = () => {
         translucent
         backgroundColor="transparent"
       />
-      <WelcomeScreen />
+      <LoginScreen />
     </PaperProvider>
   );
 };
