@@ -14,10 +14,12 @@ const WelcomeScreen = () => {
       style={styles.bgImage}
       blurRadius={Platform.OS === 'android' ? 5 : 20}>
       <View style={styles.container}>
-        <HeaderImage
-          source={require('../assets/topnews.png')}
-          style={styles.imageContainer}
-        />
+        <View style={styles.imageContainer}>
+          <HeaderImage
+            source={require('../assets/topnews.png')}
+            style={styles.image}
+          />
+        </View>
         <View style={styles.buttonsContainer}>
           <AppButton
             //   loading={true}
@@ -62,6 +64,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  image: {
+    width: 400,
+    height: 400,
   },
   imageContainer: {flex: 1},
 });

@@ -8,14 +8,14 @@ import Screen from '../components/Screen';
 import AppTextInput from '../components/AppTextInput';
 import AppButton from '../components/AppButton';
 //config
-import colors from '../config/colors';
+import defaultStyle from '../config/styles';
 
 const LoginScreen = () => {
   return (
-    <Screen style={{backgroundColor: colors.light}}>
+    <Screen style={{backgroundColor: defaultStyle.colors.light}}>
       <View style={styles.container}>
         <View style={{alignSelf: 'flex-start'}}>
-          <Text>Sign In</Text>
+          <Text style={[defaultStyle.text, styles.pageTitle]}>Sign In</Text>
         </View>
         <View>
           <HeaderImage source={require('../assets/topnews.png')} />
@@ -65,6 +65,10 @@ const styles = StyleSheet.create({
   },
   containerForm: {
     width: '100%',
+  },
+  pageTitle: {
+    fontSize: 40,
+    fontWeight: 'bold',
   },
 });
 

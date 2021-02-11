@@ -6,6 +6,7 @@ import {StatusBar} from 'react-native';
 import WelcomeScreen from './app/screens/WelcomeScreen';
 import colors from './app/config/colors';
 import LoginScreen from './app/screens/LoginScreen';
+import RegisterScreen from './app/screens/RegisterScreen';
 
 const App = () => {
   useEffect(() => {
@@ -27,7 +28,7 @@ const App = () => {
         translucent
         backgroundColor="transparent"
       />
-      <LoginScreen />
+      <WelcomeScreen />
     </PaperProvider>
   );
 };
