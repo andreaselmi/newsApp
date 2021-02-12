@@ -1,13 +1,11 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image, ImageBackground} from 'react-native';
+import {View, Text, StyleSheet, ImageBackground} from 'react-native';
 
-import {Button} from 'react-native-paper';
 import AppButton from '../components/AppButton';
 
 import HeaderImage from '../components/HeaderImage';
-import Screen from '../components/Screen';
 
-const WelcomeScreen = () => {
+const WelcomeScreen = ({navigation}) => {
   return (
     <ImageBackground
       source={require('../assets/welcomeScreenBg.jpg')}
@@ -28,7 +26,7 @@ const WelcomeScreen = () => {
             labelStyle={{letterSpacing: 6}}
             style={styles.button}
             mode="contained"
-            onPress={() => console.log('Pressed')}>
+            onPress={() => navigation.navigate('Login')}>
             Log in
           </AppButton>
           <AppButton
@@ -39,7 +37,7 @@ const WelcomeScreen = () => {
             labelStyle={{letterSpacing: 6}}
             style={styles.button}
             mode="contained"
-            onPress={() => console.log('Pressed')}>
+            onPress={() => navigation.navigate('Register')}>
             Register
           </AppButton>
         </View>
