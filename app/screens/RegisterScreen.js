@@ -20,7 +20,7 @@ let validationSchema = yup.object().shape({
 
 const RegisterScreen = () => {
   return (
-    <Screen style={{backgroundColor: defaultStyle.colors.dark}}>
+    <Screen style={{backgroundColor: defaultStyle.colors.medium}}>
       <View style={styles.container}>
         <View style={styles.containerHeader}>
           <Text style={[defaultStyle.text, styles.pageTitle]}>Registrati</Text>
@@ -34,20 +34,11 @@ const RegisterScreen = () => {
         </View> */}
         <View style={styles.containerForm}>
           <Formik
-            initialValues={{fullname: '', email: '', password: ''}}
+            initialValues={{email: '', password: ''}}
             onSubmit={(values) => console.log(values)}
             validationSchema={validationSchema}>
             {({handleChange, handleBlur, handleSubmit, values}) => (
               <View>
-                <FormField
-                  name="fullname"
-                  label="Full Name"
-                  placeholder="Mario Rossi"
-                  mode="flat"
-                  onChangeText={handleChange('fullname')}
-                  onBlur={handleBlur('fullname')}
-                  value={values.fullname}
-                />
                 <FormField
                   name="email"
                   label="email"
@@ -70,7 +61,6 @@ const RegisterScreen = () => {
                   contentStyle={{height: 50}}
                   labelStyle={{letterSpacing: 6}}
                   text="Register"
-                  mode="contained"
                   onPress={handleSubmit}
                 />
               </View>

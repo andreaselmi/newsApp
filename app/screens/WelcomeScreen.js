@@ -25,7 +25,6 @@ const WelcomeScreen = ({navigation}) => {
             contentStyle={{height: 50}}
             labelStyle={{letterSpacing: 6}}
             style={styles.button}
-            mode="contained"
             onPress={() => navigation.navigate('Login')}>
             Log in
           </AppButton>
@@ -35,7 +34,6 @@ const WelcomeScreen = ({navigation}) => {
             contentStyle={{height: 50}}
             labelStyle={{letterSpacing: 6}}
             style={styles.button}
-            mode="contained"
             onPress={() => navigation.navigate('Register')}>
             Register
           </AppButton>

@@ -1,8 +1,9 @@
 export default {
   primary: '#2EC48C',
-  medium: '#424548',
+  darkGray: '#424548',
   light: '#f8f4f4',
-  dark: '#272727',
+  medium: '#272727',
+  dark: '#121212',
   black: '#000',
   white: '#fff',
   placeholder: '#6B6B6B',

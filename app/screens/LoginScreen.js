@@ -20,7 +20,7 @@ let validationSchema = yup.object().shape({
 
 const LoginScreen = () => {
   return (
-    <Screen style={{backgroundColor: defaultStyle.colors.dark}}>
+    <Screen style={{backgroundColor: defaultStyle.colors.medium}}>
       <View style={styles.container}>
         <View style={styles.containerHeader}>
           <Text style={[defaultStyle.text, styles.pageTitle]}>Accedi</Text>
@@ -72,7 +72,6 @@ const LoginScreen = () => {
                 <AppButton
                   contentStyle={{height: 50}}
                   labelStyle={{letterSpacing: 6}}
-                  mode="contained"
                   onPress={handleSubmit}
                   text="Log In"
                 />
