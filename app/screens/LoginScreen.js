@@ -1,14 +1,20 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {Formik} from 'formik';
+import * as yup from 'yup';
 
 //components
 import HeaderImage from '../components/HeaderImage';
 import Screen from '../components/Screen';
-import AppTextInput from '../components/AppTextInput';
+import FormField from '../components/form/FormField';
 import AppButton from '../components/AppButton';
 //config
 import defaultStyle from '../config/styles';
+
+let validationSchema = yup.object().shape({
+  email: yup.string().email().required(),
+  password: yup.string().min(4).required(),
+});
 
 const LoginScreen = () => {
   return (
@@ -23,30 +29,47 @@ const LoginScreen = () => {
         <View style={styles.containerForm}>
           <Formik
             initialValues={{email: '', password: ''}}
-            onSubmit={(values) => console.log(values)}>
-            {({handleChange, handleBlur, handleSubmit, values}) => (
+            onSubmit={(values) => console.log(values)}
+            validationSchema={validationSchema}>
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              errors,
+              touched,
+              values,
+            }) => (
               <View>
-                <AppTextInput
+                <FormField
+                  error={errors.email && touched.email}
+                  errorMessage={errors.email}
                   label="email"
-                  placeholder="username@email.com"
+                  keyboardType="email-address"
                   mode="flat"
+                  name="email"
                   onChangeText={handleChange('email')}
                   onBlur={handleBlur('email')}
+                  placeholder="username@email.com"
                   value={values.email}
                 />
-                <AppTextInput
+                <FormField
+                  autoCorrect={false}
+                  error={errors.password && touched.password}
+                  errorMessage={errors.password}
                   label="password"
                   mode="flat"
+                  name="password"
                   onChangeText={handleChange('password')}
                   onBlur={handleBlur('password')}
+                  secureTextEntry
                   value={values.password}
                 />
                 <AppButton
                   contentStyle={{height: 50}}
                   labelStyle={{letterSpacing: 6}}
-                  text="Log In"
                   mode="contained"
                   onPress={handleSubmit}
+                  text="Log In"
                 />
               </View>
             )}

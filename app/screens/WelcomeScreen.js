@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, ImageBackground} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
 import AppButton from '../components/AppButton';
 
@@ -11,7 +12,7 @@ const WelcomeScreen = ({navigation}) => {
       source={require('../assets/welcomeScreenBg.jpg')}
       style={styles.bgImage}
       blurRadius={Platform.OS === 'android' ? 5 : 20}>
-      <View style={styles.container}>
+      <LinearGradient colors={['#ffffff00', 'black']} style={styles.container}>
         <View style={styles.imageContainer}>
           <HeaderImage
             source={require('../assets/topnews.png')}
@@ -41,7 +42,7 @@ const WelcomeScreen = ({navigation}) => {
             Register
           </AppButton>
         </View>
-      </View>
+      </LinearGradient>
     </ImageBackground>
   );
 };

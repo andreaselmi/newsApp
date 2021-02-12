@@ -1,14 +1,21 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {Formik} from 'formik';
+import * as yup from 'yup';
 
 //components
 import {Avatar} from 'react-native-paper';
 import Screen from '../components/Screen';
-import AppTextInput from '../components/AppTextInput';
+import FormField from '../components/form/FormField';
 import AppButton from '../components/AppButton';
 //config
 import defaultStyle from '../config/styles';
+
+let validationSchema = yup.object().shape({
+  email: yup.string().email().required(),
+  password: yup.string().min(4).required(),
+  fullname: yup.string().required(),
+});
 
 const RegisterScreen = () => {
   return (
@@ -23,10 +30,12 @@ const RegisterScreen = () => {
         <View style={styles.containerForm}>
           <Formik
             initialValues={{fullname: '', email: '', password: ''}}
-            onSubmit={(values) => console.log(values)}>
+            onSubmit={(values) => console.log(values)}
+            validationSchema={validationSchema}>
             {({handleChange, handleBlur, handleSubmit, values}) => (
               <View>
-                <AppTextInput
+                <FormField
+                  name="fullname"
                   label="Full Name"
                   placeholder="Mario Rossi"
                   mode="flat"
@@ -34,7 +43,8 @@ const RegisterScreen = () => {
                   onBlur={handleBlur('fullname')}
                   value={values.fullname}
                 />
-                <AppTextInput
+                <FormField
+                  name="email"
                   label="email"
                   placeholder="username@email.com"
                   mode="flat"
@@ -42,7 +52,8 @@ const RegisterScreen = () => {
                   onBlur={handleBlur('email')}
                   value={values.email}
                 />
-                <AppTextInput
+                <FormField
+                  name="password"
                   label="password"
                   placeholder="••••••••"
                   mode="flat"
