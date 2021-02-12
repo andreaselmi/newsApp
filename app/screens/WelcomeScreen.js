@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, ImageBackground} from 'react-native';
+import {View, StyleSheet, ImageBackground} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import AppButton from '../components/AppButton';
@@ -21,7 +21,6 @@ const WelcomeScreen = ({navigation}) => {
         </View>
         <View style={styles.buttonsContainer}>
           <AppButton
-            //   loading={true}
             text="Log In"
             contentStyle={{height: 50}}
             labelStyle={{letterSpacing: 6}}
@@ -31,7 +30,6 @@ const WelcomeScreen = ({navigation}) => {
             Log in
           </AppButton>
           <AppButton
-            //   loading={true}
             style={styles.button}
             text="Register"
             contentStyle={{height: 50}}

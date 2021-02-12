@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {Formik} from 'formik';
 import * as yup from 'yup';
 
@@ -8,8 +8,10 @@ import HeaderImage from '../components/HeaderImage';
 import Screen from '../components/Screen';
 import FormField from '../components/form/FormField';
 import AppButton from '../components/AppButton';
+import Text from '../components/Text';
 //config
 import defaultStyle from '../config/styles';
+import colors from '../config/colors';
 
 let validationSchema = yup.object().shape({
   email: yup.string().email().required(),
@@ -18,14 +20,17 @@ let validationSchema = yup.object().shape({
 
 const LoginScreen = () => {
   return (
-    <Screen style={{backgroundColor: defaultStyle.colors.light}}>
+    <Screen style={{backgroundColor: defaultStyle.colors.dark}}>
       <View style={styles.container}>
-        <View style={{alignSelf: 'flex-start'}}>
-          <Text style={[defaultStyle.text, styles.pageTitle]}>Sign In</Text>
+        <View style={styles.containerHeader}>
+          <Text style={[defaultStyle.text, styles.pageTitle]}>Accedi</Text>
+          <Text style={styles.pageSubtitle}>
+            Accedi per visualizzare i tuoi articoli salvati
+          </Text>
         </View>
-        <View>
+        {/* <View>
           <HeaderImage source={require('../assets/topnews.png')} />
-        </View>
+        </View> */}
         <View style={styles.containerForm}>
           <Formik
             initialValues={{email: '', password: ''}}
@@ -89,9 +94,17 @@ const styles = StyleSheet.create({
   containerForm: {
     width: '100%',
   },
+  containerHeader: {
+    alignSelf: 'flex-start',
+    marginBottom: 30,
+  },
   pageTitle: {
     fontSize: 40,
     fontWeight: 'bold',
+    color: colors.white,
+  },
+  pageSubtitle: {
+    color: colors.white,
   },
 });
 

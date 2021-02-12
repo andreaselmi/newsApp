@@ -10,6 +10,7 @@ import FormField from '../components/form/FormField';
 import AppButton from '../components/AppButton';
 //config
 import defaultStyle from '../config/styles';
+import colors from '../config/colors';
 
 let validationSchema = yup.object().shape({
   email: yup.string().email().required(),
@@ -19,14 +20,18 @@ let validationSchema = yup.object().shape({
 
 const RegisterScreen = () => {
   return (
-    <Screen style={{backgroundColor: defaultStyle.colors.light}}>
+    <Screen style={{backgroundColor: defaultStyle.colors.dark}}>
       <View style={styles.container}>
-        <View style={{alignSelf: 'flex-start'}}>
-          <Text style={[defaultStyle.text, styles.pageTitle]}>Sign Up</Text>
+        <View style={styles.containerHeader}>
+          <Text style={[defaultStyle.text, styles.pageTitle]}>Registrati</Text>
+          <Text style={styles.pageSubtitle}>
+            Crea un account per avere la possibilità di salvare gli articoli e
+            leggerli ovunque, anche offline
+          </Text>
         </View>
-        <View style={styles.containerAvatar}>
+        {/* <View style={styles.containerAvatar}>
           <Avatar.Image size={150} source={require('../assets/topnews.png')} />
-        </View>
+        </View> */}
         <View style={styles.containerForm}>
           <Formik
             initialValues={{fullname: '', email: '', password: ''}}
@@ -81,6 +86,10 @@ const styles = StyleSheet.create({
   containerAvatar: {
     margin: 50,
   },
+  containerHeader: {
+    alignSelf: 'flex-start',
+    marginBottom: 30,
+  },
   container: {
     paddingHorizontal: 20,
     flex: 1,
@@ -92,6 +101,10 @@ const styles = StyleSheet.create({
   pageTitle: {
     fontSize: 40,
     fontWeight: 'bold',
+    color: colors.white,
+  },
+  pageSubtitle: {
+    color: colors.white,
   },
 });
 

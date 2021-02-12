@@ -18,6 +18,10 @@ const App = () => {
       ...DefaultTheme.colors,
       primary: colors.primary,
       accent: colors.secondary,
+      background: colors.medium,
+      text: colors.white,
+      error: colors.danger,
+      placeholder: colors.placeholder,
     },
   };
   return (
