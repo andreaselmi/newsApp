@@ -3,10 +3,9 @@ import SplashScreen from 'react-native-splash-screen';
 import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
 import {StatusBar} from 'react-native';
 
-import WelcomeScreen from './app/screens/WelcomeScreen';
+import AuthStack from './app/navigation/AuthStack';
 import colors from './app/config/colors';
-import LoginScreen from './app/screens/LoginScreen';
-import RegisterScreen from './app/screens/RegisterScreen';
+import {NavigationContainer} from '@react-navigation/native';
 
 const App = () => {
   useEffect(() => {
@@ -22,14 +21,16 @@ const App = () => {
     },
   };
   return (
-    <PaperProvider theme={theme}>
-      <StatusBar
-        barStyle="dark-content"
-        translucent
-        backgroundColor="transparent"
-      />
-      <WelcomeScreen />
-    </PaperProvider>
+    <NavigationContainer>
+      <PaperProvider theme={theme}>
+        <StatusBar
+          barStyle="dark-content"
+          translucent
+          backgroundColor="transparent"
+        />
+        <AuthStack />
+      </PaperProvider>
+    </NavigationContainer>
   );
 };
 
