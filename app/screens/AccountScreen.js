@@ -11,7 +11,7 @@ import defaultStyles from '../config/styles';
 
 const AccountScreen = () => {
   return (
-    <Screen style={{backgroundColor: defaultStyles.colors.dark}}>
+    <Screen style={{backgroundColor: defaultStyles.colors.medium}}>
       <View style={styles.accountContainer}>
         <Text style={defaultStyles.text}>andreaselmi90@gmail.com</Text>
       </View>
@@ -33,24 +33,16 @@ const AccountScreen = () => {
 
 const styles = StyleSheet.create({
   accountContainer: {
-    backgroundColor: defaultStyles.colors.medium,
+    backgroundColor: '#313131',
     justifyContent: 'center',
     marginTop: 20,
     height: 60,
     paddingHorizontal: 15,
-    shadowColor: defaultStyles.colors.black,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-
-    elevation: 5,
   },
   buttonContainer: {
     marginTop: 'auto',
-    marginBottom: 100,
+    marginBottom: 20,
+    paddingHorizontal: 20,
   },
 });
 

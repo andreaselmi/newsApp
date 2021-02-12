@@ -7,6 +7,7 @@ import AuthStack from './app/navigation/AuthStack';
 import theme from './app/config/theme';
 import {NavigationContainer} from '@react-navigation/native';
 import AccountScreen from './app/screens/AccountScreen';
+import AppNavigator from './app/navigation/AppNavigator';
 
 const App = () => {
   useEffect(() => {
@@ -21,7 +22,7 @@ const App = () => {
           translucent
           backgroundColor="transparent"
         />
-        <AccountScreen />
+        <AppNavigator />
       </PaperProvider>
     </NavigationContainer>
   );
