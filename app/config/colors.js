@@ -9,3 +9,5 @@ export default {
   placeholder: '#6B6B6B',
   danger: '#EB4521',
 };
+
+// #808787

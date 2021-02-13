@@ -1,30 +1,43 @@
-import React from 'react';
-import {View, StyleSheet} from 'react-native';
-import AppButton from '../components/AppButton';
+import React, {useState} from 'react';
+import {View, StyleSheet, Switch} from 'react-native';
+
+import IonIcon from 'react-native-vector-icons/Ionicons';
 
 //components
 import Screen from '../components/Screen';
 import Text from '../components/Text';
+import AppButton from '../components/AppButton';
 
 //config
 import defaultStyles from '../config/styles';
+import colors from '../config/colors';
 
 const AccountScreen = () => {
+  const [isEnabled, setIsEnabled] = useState(true);
+
   return (
     <Screen>
       <View style={styles.accountContainer}>
         <Text style={defaultStyles.text}>andreaselmi90@gmail.com</Text>
       </View>
       <View style={styles.accountContainer}>
-        <Text style={defaultStyles.text}>
-          Hai ancora 2 articoli da leggere{' '}
-        </Text>
+        <Text style={defaultStyles.text}>Hai ancora 2 articoli da leggere</Text>
+        <IonIcon name="chevron-forward" size={24} color={colors.light} />
+      </View>
+      <View style={[styles.accountContainer, styles.darkModeContainer]}>
+        <Text style={defaultStyles.text}>Dark Mode</Text>
+        <Switch
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={() => setIsEnabled(!isEnabled)}
+          value={isEnabled}
+        />
       </View>
       <View style={styles.buttonContainer}>
         <AppButton
           text="Log Out"
           contentStyle={{height: 50}}
           labelStyle={{letterSpacing: 6}}
+          onPress={() => console.log('pressed')}
         />
       </View>
     </Screen>
@@ -34,16 +47,19 @@ const AccountScreen = () => {
 const styles = StyleSheet.create({
   accountContainer: {
     backgroundColor: '#313131',
-    justifyContent: 'center',
     marginTop: 20,
     height: 60,
     paddingHorizontal: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   buttonContainer: {
     marginTop: 'auto',
     marginBottom: 20,
     paddingHorizontal: 20,
   },
+  darkModeContainer: {},
 });
 
 export default AccountScreen;

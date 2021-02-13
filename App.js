@@ -1,12 +1,13 @@
 import React, {useEffect} from 'react';
 import SplashScreen from 'react-native-splash-screen';
-import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
+import {Provider as PaperProvider} from 'react-native-paper';
 import {StatusBar} from 'react-native';
+import IonIcon from 'react-native-vector-icons/Ionicons';
 
 import AuthStack from './app/navigation/AuthStack';
 import theme from './app/config/theme';
 import {NavigationContainer} from '@react-navigation/native';
-import AccountScreen from './app/screens/AccountScreen';
+
 import AppNavigator from './app/navigation/AppNavigator';
 
 const App = () => {
@@ -16,7 +17,11 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <PaperProvider theme={theme}>
+      <PaperProvider
+        theme={theme}
+        settings={{
+          icon: (props) => <IonIcon {...props} />,
+        }}>
         <StatusBar
           barStyle="light-content"
           translucent
