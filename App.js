@@ -22,7 +22,7 @@ const App = () => {
           translucent
           backgroundColor="transparent"
         />
-        <AuthStack />
+        <AppNavigator />
       </PaperProvider>
     </NavigationContainer>
   );
