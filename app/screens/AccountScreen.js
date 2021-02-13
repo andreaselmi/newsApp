@@ -11,7 +11,7 @@ import defaultStyles from '../config/styles';
 
 const AccountScreen = () => {
   return (
-    <Screen style={{backgroundColor: defaultStyles.colors.medium}}>
+    <Screen>
       <View style={styles.accountContainer}>
         <Text style={defaultStyles.text}>andreaselmi90@gmail.com</Text>
       </View>

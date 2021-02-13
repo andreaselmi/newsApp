@@ -6,7 +6,7 @@ import Text from '../components/Text';
 
 const SearchScreen = () => {
   return (
-    <Screen style={{backgroundColor: defaultStyles.colors.medium}}>
+    <Screen>
       <Text>SearchScreen</Text>
     </Screen>
   );

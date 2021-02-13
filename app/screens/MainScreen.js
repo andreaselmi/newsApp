@@ -7,7 +7,7 @@ import Text from '../components/Text';
 
 const MainScreen = () => {
   return (
-    <Screen style={{backgroundColor: defaultStyles.colors.medium}}>
+    <Screen>
       <Text>MainScreen</Text>
     </Screen>
   );
