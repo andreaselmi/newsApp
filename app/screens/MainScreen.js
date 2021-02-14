@@ -1,10 +1,7 @@
 import React from 'react';
-import {View, StyleSheet, Image, ScrollView, FlatList} from 'react-native';
+import {View, StyleSheet, FlatList} from 'react-native';
 
 import Screen from '../components/Screen';
-import Text from '../components/Text';
-import AppButton from '../components/AppButton';
-import colors from '../config/colors';
 import Card from '../components/Card';
 
 const MainScreen = ({navigation}) => {

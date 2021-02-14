@@ -6,7 +6,6 @@ import Screen from '../components/Screen';
 import TextInput from '../components/form/TextInput';
 import Text from '../components/Text';
 import colors from '../config/colors';
-import Section from '../components/Section';
 import SectionText from '../components/SectionText';
 
 import sections from '../array/sections';
@@ -49,18 +48,3 @@ const styles = StyleSheet.create({
 });
 
 export default SearchScreen;
-
-{
-  /* <FlatList
-          columnWrapperStyle={styles.sectionList}
-          data={sections}
-          horizontal={false}
-          numColumns={3}
-          renderItem={({item}) => <Section item={item} />}
-          key={(item) => item.id}
-        /> */
-}
-
-// sectionList: {
-//   justifyContent: 'space-between',
-// },

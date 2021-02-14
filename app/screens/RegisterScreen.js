@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import {Avatar} from 'react-native-paper';
 import Screen from '../components/Screen';
 import FormField from '../components/form/FormField';
-import AppButton from '../components/AppButton';
+import Button from '../components/Button';
 //config
 import defaultStyle from '../config/styles';
 import colors from '../config/colors';
@@ -57,7 +57,7 @@ const RegisterScreen = () => {
                   onBlur={handleBlur('password')}
                   value={values.password}
                 />
-                <AppButton name="Register" onPress={handleSubmit} />
+                <Button name="Register" onPress={handleSubmit} />
               </View>
             )}
           </Formik>

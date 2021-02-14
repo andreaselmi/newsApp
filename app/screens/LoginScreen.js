@@ -4,10 +4,9 @@ import {Formik} from 'formik';
 import * as yup from 'yup';
 
 //components
-import HeaderImage from '../components/HeaderImage';
 import Screen from '../components/Screen';
 import FormField from '../components/form/FormField';
-import AppButton from '../components/AppButton';
+import Button from '../components/Button';
 import Text from '../components/Text';
 //config
 import defaultStyle from '../config/styles';
@@ -69,7 +68,7 @@ const LoginScreen = () => {
                   secureTextEntry
                   value={values.password}
                 />
-                <AppButton
+                <Button
                   labelStyle={{letterSpacing: 6}}
                   onPress={handleSubmit}
                   name="Log In"

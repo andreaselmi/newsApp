@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet, ImageBackground} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-import AppButton from '../components/AppButton';
+import Button from '../components/Button';
 
 import HeaderImage from '../components/HeaderImage';
 
@@ -20,19 +20,17 @@ const WelcomeScreen = ({navigation}) => {
           />
         </View>
         <View style={styles.buttonsContainer}>
-          <AppButton
+          <Button
             name="Log In"
             style={styles.button}
-            onPress={() => navigation.navigate('Login')}>
-            Log in
-          </AppButton>
-          <AppButton
+            onPress={() => navigation.navigate('Login')}
+          />
+          <Button
             style={styles.button}
             name="Register"
             style={styles.button}
-            onPress={() => navigation.navigate('Register')}>
-            Register
-          </AppButton>
+            onPress={() => navigation.navigate('Register')}
+          />
         </View>
       </LinearGradient>
     </ImageBackground>

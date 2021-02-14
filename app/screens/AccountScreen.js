@@ -6,7 +6,7 @@ import IonIcon from 'react-native-vector-icons/Ionicons';
 //components
 import Screen from '../components/Screen';
 import Text from '../components/Text';
-import AppButton from '../components/AppButton';
+import Button from '../components/Button';
 
 //config
 import defaultStyles from '../config/styles';
@@ -33,7 +33,7 @@ const AccountScreen = () => {
         />
       </View>
       <View style={styles.buttonContainer}>
-        <AppButton
+        <Button
           name="Log Out"
           labelStyle={{letterSpacing: 6}}
           onPress={() => console.log('pressed')}
