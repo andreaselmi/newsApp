@@ -34,8 +34,7 @@ const AccountScreen = () => {
       </View>
       <View style={styles.buttonContainer}>
         <AppButton
-          text="Log Out"
-          contentStyle={{height: 50}}
+          name="Log Out"
           labelStyle={{letterSpacing: 6}}
           onPress={() => console.log('pressed')}
         />

@@ -57,12 +57,7 @@ const RegisterScreen = () => {
                   onBlur={handleBlur('password')}
                   value={values.password}
                 />
-                <AppButton
-                  contentStyle={{height: 50}}
-                  labelStyle={{letterSpacing: 6}}
-                  text="Register"
-                  onPress={handleSubmit}
-                />
+                <AppButton name="Register" onPress={handleSubmit} />
               </View>
             )}
           </Formik>

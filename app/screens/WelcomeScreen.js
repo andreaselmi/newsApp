@@ -21,18 +21,14 @@ const WelcomeScreen = ({navigation}) => {
         </View>
         <View style={styles.buttonsContainer}>
           <AppButton
-            text="Log In"
-            contentStyle={{height: 50}}
-            labelStyle={{letterSpacing: 6}}
+            name="Log In"
             style={styles.button}
             onPress={() => navigation.navigate('Login')}>
             Log in
           </AppButton>
           <AppButton
             style={styles.button}
-            text="Register"
-            contentStyle={{height: 50}}
-            labelStyle={{letterSpacing: 6}}
+            name="Register"
             style={styles.button}
             onPress={() => navigation.navigate('Register')}>
             Register

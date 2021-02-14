@@ -70,10 +70,9 @@ const LoginScreen = () => {
                   value={values.password}
                 />
                 <AppButton
-                  contentStyle={{height: 50}}
                   labelStyle={{letterSpacing: 6}}
                   onPress={handleSubmit}
-                  text="Log In"
+                  name="Log In"
                 />
               </View>
             )}

@@ -2,10 +2,22 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {Button} from 'react-native-paper';
 
-const AppButton = ({style, text, mode = 'contained', ...restProps}) => {
+const AppButton = ({
+  style,
+  name,
+  mode = 'contained',
+  letterSpacing = 6,
+  height = 50,
+  ...restProps
+}) => {
   return (
-    <Button mode={mode} style={[styles.button, style]} {...restProps}>
-      {text}
+    <Button
+      labelStyle={{letterSpacing}}
+      contentStyle={{height}}
+      mode={mode}
+      style={[styles.button, style]}
+      {...restProps}>
+      {name}
     </Button>
   );
 };

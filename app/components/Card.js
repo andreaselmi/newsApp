@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Image} from 'react-native';
+import {View, StyleSheet, Image, TouchableWithoutFeedback} from 'react-native';
 
 //components
 import Text from './Text';
@@ -7,11 +7,11 @@ import Text from './Text';
 //config
 import colors from '../config/colors';
 
-const MyCard = ({item}) => {
+const MyCard = ({item, onPress}) => {
   const {imgUrl, title, subTitle, paragraph} = item;
 
   return (
-    <View>
+    <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.cardContainer}>
         <View style={styles.imageContainer}>
           <Image
@@ -32,7 +32,7 @@ const MyCard = ({item}) => {
           </View>
         </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 

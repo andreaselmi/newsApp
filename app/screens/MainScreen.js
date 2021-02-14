@@ -57,7 +57,12 @@ const MainScreen = ({navigation}) => {
         <FlatList
           showsVerticalScrollIndicator={false}
           data={articles}
-          renderItem={({item}) => <Card item={item} />}
+          renderItem={({item}) => (
+            <Card
+              item={item}
+              onPress={() => navigation.navigate('Article', {item})}
+            />
+          )}
           keyExtractor={(item) => item.id}
         />
       </View>
