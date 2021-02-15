@@ -2,6 +2,7 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Formik} from 'formik';
 import * as yup from 'yup';
+import auth from '@react-native-firebase/auth';
 
 //components
 import Screen from '../components/Screen';
@@ -18,6 +19,14 @@ let validationSchema = yup.object().shape({
 });
 
 const LoginScreen = () => {
+  const login = async (values) => {
+    try {
+      await auth().signInWithEmailAndPassword(values.email, values.password);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <Screen style={{backgroundColor: defaultStyle.colors.medium}}>
       <View style={styles.container}>
@@ -27,13 +36,10 @@ const LoginScreen = () => {
             Accedi per visualizzare i tuoi articoli salvati
           </Text>
         </View>
-        {/* <View>
-          <HeaderImage source={require('../assets/topnews.png')} />
-        </View> */}
         <View style={styles.containerForm}>
           <Formik
             initialValues={{email: '', password: ''}}
-            onSubmit={(values) => console.log(values)}
+            onSubmit={login}
             validationSchema={validationSchema}>
             {({
               handleChange,
@@ -45,6 +51,7 @@ const LoginScreen = () => {
             }) => (
               <View>
                 <FormField
+                  autoCapitalize="none"
                   error={errors.email && touched.email}
                   errorMessage={errors.email}
                   label="email"
@@ -57,6 +64,7 @@ const LoginScreen = () => {
                   value={values.email}
                 />
                 <FormField
+                  autoCapitalize="none"
                   autoCorrect={false}
                   error={errors.password && touched.password}
                   errorMessage={errors.password}

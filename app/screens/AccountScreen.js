@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, Switch} from 'react-native';
+import auth from '@react-native-firebase/auth';
 
 import IonIcon from 'react-native-vector-icons/Ionicons';
 
@@ -14,6 +15,14 @@ import colors from '../config/colors';
 
 const AccountScreen = () => {
   const [isEnabled, setIsEnabled] = useState(true);
+
+  const logout = async () => {
+    try {
+      await auth().signOut();
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <Screen>
@@ -36,7 +45,7 @@ const AccountScreen = () => {
         <Button
           name="Log Out"
           labelStyle={{letterSpacing: 6}}
-          onPress={() => console.log('pressed')}
+          onPress={logout}
         />
       </View>
     </Screen>

@@ -1,22 +1,25 @@
 import React, {useEffect} from 'react';
+import {StatusBar} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import {Provider as PaperProvider} from 'react-native-paper';
-import {StatusBar} from 'react-native';
 import IonIcon from 'react-native-vector-icons/Ionicons';
+import {Provider} from 'react-redux';
 
-import AuthStack from './app/navigation/AuthStack';
+//config
 import theme from './app/config/theme';
-import {NavigationContainer} from '@react-navigation/native';
 
-import AppNavigator from './app/navigation/AppNavigator';
+import Routes from './app/navigation/Routes';
+import configureStore from './app/store/configureStore';
 
 const App = () => {
   useEffect(() => {
     SplashScreen.hide();
   }, []);
 
+  const store = configureStore();
+
   return (
-    <NavigationContainer>
+    <Provider store={store}>
       <PaperProvider
         theme={theme}
         settings={{
@@ -27,9 +30,9 @@ const App = () => {
           translucent
           backgroundColor="transparent"
         />
-        <AppNavigator />
+        <Routes />
       </PaperProvider>
-    </NavigationContainer>
+    </Provider>
   );
 };
 

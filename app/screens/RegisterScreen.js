@@ -2,9 +2,9 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {Formik} from 'formik';
 import * as yup from 'yup';
+import auth from '@react-native-firebase/auth';
 
 //components
-import {Avatar} from 'react-native-paper';
 import Screen from '../components/Screen';
 import FormField from '../components/form/FormField';
 import Button from '../components/Button';
@@ -15,10 +15,28 @@ import colors from '../config/colors';
 let validationSchema = yup.object().shape({
   email: yup.string().email().required(),
   password: yup.string().min(4).required(),
-  fullname: yup.string().required(),
 });
 
 const RegisterScreen = () => {
+  const register = async (values) => {
+    try {
+      await auth().createUserWithEmailAndPassword(
+        values.email,
+        values.password,
+      );
+    } catch (error) {
+      if (error.code === 'auth/email-already-in-use') {
+        console.log('That email address is already in use!');
+      }
+
+      if (error.code === 'auth/invalid-email') {
+        console.log('That email address is invalid!');
+      }
+
+      console.error(error);
+    }
+  };
+
   return (
     <Screen style={{backgroundColor: defaultStyle.colors.medium}}>
       <View style={styles.container}>
@@ -29,17 +47,15 @@ const RegisterScreen = () => {
             leggerli ovunque, anche offline
           </Text>
         </View>
-        {/* <View style={styles.containerAvatar}>
-          <Avatar.Image size={150} source={require('../assets/topnews.png')} />
-        </View> */}
         <View style={styles.containerForm}>
           <Formik
             initialValues={{email: '', password: ''}}
-            onSubmit={(values) => console.log(values)}
+            onSubmit={register}
             validationSchema={validationSchema}>
             {({handleChange, handleBlur, handleSubmit, values}) => (
               <View>
                 <FormField
+                  autoCapitalize="none"
                   name="email"
                   label="email"
                   placeholder="username@email.com"
@@ -49,6 +65,7 @@ const RegisterScreen = () => {
                   value={values.email}
                 />
                 <FormField
+                  autoCapitalize="none"
                   name="password"
                   label="password"
                   placeholder="••••••••"
