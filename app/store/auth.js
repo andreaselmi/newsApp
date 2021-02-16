@@ -1,24 +1,23 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSelector, createSlice} from '@reduxjs/toolkit';
+import {auth} from '@react-native-firebase/auth';
 
-const slice = createSlice({
+const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    user: {},
-    isLoading: false,
+    user: null,
+    isAuthenticated: false,
   },
   reducers: {
-    authStart: (auth, action) => {
-      auth.isLoading = true;
-    },
-    authSuccess: (auth, action) => {
-      auth.isLoading = false;
+    authUser: (auth, action) => {
       auth.user = action.payload;
+      auth.isAuthenticated = true;
     },
-    cleanUser: (auth, action) => {
-      auth.user = {};
+    logoutUser: (auth) => {
+      auth.user = null;
+      auth.isAuthenticated = false;
     },
   },
 });
 
-export const {authStart, authSuccess, cleanUser} = slice.actions;
-export default slice.reducer;
+export const {authUser, logoutUser} = authSlice.actions;
+export default authSlice.reducer;

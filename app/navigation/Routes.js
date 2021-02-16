@@ -5,22 +5,32 @@ import auth from '@react-native-firebase/auth';
 //navigators
 import AppNavigator from './AppNavigator';
 import AuthStack from './AuthStack';
+import {useDispatch, useSelector} from 'react-redux';
+import {authUser, logoutUser, signOutUser} from '../store/auth';
 
 const Routes = () => {
-  const [user, setUser] = useState(false);
+  const dispatch = useDispatch();
 
-  function onAuthStateChanged(user) {
-    setUser(user);
-  }
+  const authenticated = useSelector((state) => state.isAuthenticated);
+
+  // const onAuthStateChanged = (user) => {
+  //   setUser(user);
+  // };
 
   useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    const subscriber = auth().onAuthStateChanged((user) => {
+      if (user) {
+        dispatch(authUser(user));
+      } else {
+        dispatch(logoutUser());
+      }
+    });
     return subscriber; // unsubscribe on unmount
   }, []);
 
   return (
     <NavigationContainer>
-      {user ? <AppNavigator /> : <AuthStack />}
+      {authenticated ? <AppNavigator /> : <AuthStack />}
     </NavigationContainer>
   );
 };

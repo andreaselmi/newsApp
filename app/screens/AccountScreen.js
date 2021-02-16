@@ -12,16 +12,16 @@ import Button from '../components/Button';
 //config
 import defaultStyles from '../config/styles';
 import colors from '../config/colors';
+import {useDispatch} from 'react-redux';
+import {logoutUser} from '../store/auth';
 
 const AccountScreen = () => {
   const [isEnabled, setIsEnabled] = useState(true);
 
-  const logout = async () => {
-    try {
-      await auth().signOut();
-    } catch (e) {
-      console.log(e);
-    }
+  const logout = () => {
+    auth()
+      .signOut()
+      .then(() => console.log('User signed out!'));
   };
 
   return (
