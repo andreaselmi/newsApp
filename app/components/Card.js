@@ -22,7 +22,7 @@ const MyCard = ({item, onPress}) => {
         </View>
         <View style={styles.textContainer}>
           <View>
-            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.title}>{title} prova</Text>
             <Text style={styles.subTitle}>{subTitle}</Text>
           </View>
           <View style={styles.paragraphContainer}>
