@@ -1,7 +1,6 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import MainScreen from '../screens/MainScreen';
 import AccountScreen from '../screens/AccountScreen';
 import SearchScreen from '../screens/SearchScreen';
 import colors from '../config/colors';
@@ -26,7 +25,6 @@ const AppNavigator = () => {
             iconName = focused ? 'person' : 'person-outline';
           }
 
-          // You can return any component that you like here!
           return <Ionicons name={iconName} size={size} color={color} />;
         },
       })}

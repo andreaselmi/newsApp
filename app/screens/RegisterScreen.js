@@ -56,6 +56,7 @@ const RegisterScreen = () => {
               <View>
                 <FormField
                   autoCapitalize="none"
+                  autoCorrect={false}
                   name="email"
                   label="email"
                   placeholder="username@email.com"
@@ -66,12 +67,14 @@ const RegisterScreen = () => {
                 />
                 <FormField
                   autoCapitalize="none"
+                  autoCorrect={false}
                   name="password"
                   label="password"
                   placeholder="••••••••"
                   mode="flat"
                   onChangeText={handleChange('password')}
                   onBlur={handleBlur('password')}
+                  secureTextEntry
                   value={values.password}
                 />
                 <Button name="Register" onPress={handleSubmit} />
@@ -93,17 +96,17 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   container: {
-    paddingHorizontal: 20,
-    flex: 1,
     alignItems: 'center',
+    flex: 1,
+    paddingHorizontal: 20,
   },
   containerForm: {
     width: '100%',
   },
   pageTitle: {
+    color: colors.white,
     fontSize: 40,
     fontWeight: 'bold',
-    color: colors.white,
   },
   pageSubtitle: {
     color: colors.white,

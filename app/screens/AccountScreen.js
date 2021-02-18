@@ -12,16 +12,12 @@ import Button from '../components/Button';
 //config
 import defaultStyles from '../config/styles';
 import colors from '../config/colors';
-import {useDispatch} from 'react-redux';
-import {logoutUser} from '../store/news';
 
 const AccountScreen = () => {
   const [isEnabled, setIsEnabled] = useState(true);
 
   const logout = () => {
-    auth()
-      .signOut()
-      .then(() => console.log('User signed out!'));
+    auth().signOut();
   };
 
   return (
@@ -54,17 +50,17 @@ const AccountScreen = () => {
 
 const styles = StyleSheet.create({
   accountContainer: {
-    backgroundColor: '#313131',
-    marginTop: 20,
-    height: 60,
-    paddingHorizontal: 15,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    backgroundColor: '#313131',
+    flexDirection: 'row',
+    height: 60,
+    justifyContent: 'space-between',
+    marginTop: 20,
+    paddingHorizontal: 15,
   },
   buttonContainer: {
-    marginTop: 'auto',
     marginBottom: 20,
+    marginTop: 'auto',
     paddingHorizontal: 20,
   },
   darkModeContainer: {},

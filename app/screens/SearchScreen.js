@@ -36,9 +36,10 @@ const SearchScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {paddingHorizontal: 20},
+  container: {paddingHorizontal: 20, flex: 1},
   sectionsContainer: {
     marginTop: 10,
+    flex: 1,
   },
   sectionsTitle: {
     fontSize: 36,

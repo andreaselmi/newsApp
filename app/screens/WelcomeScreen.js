@@ -40,23 +40,23 @@ const WelcomeScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   bgImage: {
     flex: 1,
-    resizeMode: 'cover',
     justifyContent: 'center',
+    resizeMode: 'cover',
   },
   button: {marginTop: 20},
   buttonsContainer: {
-    width: '100%',
     marginBottom: '25%',
+    width: '100%',
   },
   container: {
-    padding: 20,
-    flex: 1,
     alignItems: 'center',
+    flex: 1,
     justifyContent: 'center',
+    padding: 20,
   },
   image: {
-    width: 400,
     height: 400,
+    width: 400,
   },
   imageContainer: {flex: 1},
 });
