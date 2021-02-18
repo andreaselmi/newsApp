@@ -10,7 +10,6 @@ import theme from './app/config/theme';
 
 import Routes from './app/navigation/Routes';
 import configureStore from './app/store/configureStore';
-import {verifyAuth} from './app/store/auth';
 
 const App = () => {
   const store = configureStore();

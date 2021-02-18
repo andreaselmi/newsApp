@@ -13,7 +13,7 @@ import Button from '../components/Button';
 import defaultStyles from '../config/styles';
 import colors from '../config/colors';
 import {useDispatch} from 'react-redux';
-import {logoutUser} from '../store/auth';
+import {logoutUser} from '../store/news';
 
 const AccountScreen = () => {
   const [isEnabled, setIsEnabled] = useState(true);

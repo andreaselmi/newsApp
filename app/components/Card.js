@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, Image, TouchableWithoutFeedback} from 'react-native';
+import _ from 'lodash';
 
 //components
 import Text from './Text';
@@ -8,7 +9,7 @@ import Text from './Text';
 import colors from '../config/colors';
 
 const MyCard = ({item, onPress}) => {
-  const {imgUrl, title, subTitle, paragraph} = item;
+  const {urlToImage, title, author, content} = item;
 
   return (
     <TouchableWithoutFeedback onPress={onPress}>
@@ -17,17 +18,16 @@ const MyCard = ({item, onPress}) => {
           <Image
             resizeMode="cover"
             style={{width: '100%', height: '100%'}}
-            source={{uri: imgUrl}}
+            source={{uri: urlToImage}}
           />
         </View>
-        <View style={styles.textContainer}>
+        <View style={styles.headerContainer}>
           <View>
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.subTitle}>{subTitle}</Text>
-          </View>
-          <View style={styles.paragraphContainer}>
-            <Text style={styles.paragraph} numberOfLines={3}>
-              {paragraph}
+            <Text numberOfLines={3}>
+              {_.get(item, 'title', 'Not avaiable')}
+            </Text>
+            <Text style={styles.author}>
+              {_.get(item, 'author', 'Not avaiable')}
             </Text>
           </View>
         </View>
@@ -37,10 +37,14 @@ const MyCard = ({item, onPress}) => {
 };
 
 const styles = StyleSheet.create({
+  author: {
+    fontSize: 15,
+    color: colors.placeholder,
+  },
   cardContainer: {
     backgroundColor: colors.dark,
     marginTop: 20,
-    height: 300,
+    height: 275,
     borderRadius: 10,
     shadowColor: colors.black,
     shadowOffset: {
@@ -52,27 +56,14 @@ const styles = StyleSheet.create({
 
     elevation: 5,
   },
+  headerContainer: {
+    padding: 10,
+  },
   imageContainer: {
     overflow: 'hidden',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     height: 150,
-  },
-  paragraph: {
-    fontSize: 13,
-    color: colors.light,
-    marginTop: 10,
-  },
-  paragraphContainer: {
-    height: 80,
-    overflow: 'hidden',
-  },
-  textContainer: {
-    padding: 10,
-  },
-  subTitle: {
-    fontSize: 15,
-    color: colors.placeholder,
   },
 });
 

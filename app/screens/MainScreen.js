@@ -1,67 +1,38 @@
-import React from 'react';
-import {View, StyleSheet, FlatList} from 'react-native';
+import React, {useEffect} from 'react';
+import {View, StyleSheet, FlatList, Text} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 
 import Screen from '../components/Screen';
 import Card from '../components/Card';
+import {loadNews} from '../store/news';
 
 const MainScreen = ({navigation}) => {
-  const articles = [
-    {
-      id: '1',
-      title: "Hello I'm a title",
-      subTitle: 'tech',
-      imgUrl: 'https://picsum.photos/id/100/400',
-      paragraph:
-        'Sint officia ipsum dolore irure fugiat officia ex voluptate elit enim duis. Exercitation laborum tempor duis irure. Elit Lorem fugiat ut ullamco dolore nulla tempor occaecat consectetur laborum pariatur aute exercitation exercitation. Sunt aliquip et do amet anim mollit irure enim do enim. Irure ad consequat pariatur elit do. Aute occaecat commodo ipsum ipsum veniam aute tempor.',
-    },
-    {
-      id: '5',
-      title: "Hello I'm a title",
-      subTitle: 'tech',
-      imgUrl: 'https://picsum.photos/id/1004/400',
-      paragraph:
-        'Sint officia ipsum dolore irure fugiat officia ex voluptate elit enim duis. Exercitation laborum tempor duis irure. Elit Lorem fugiat ut ullamco dolore nulla tempor occaecat consectetur laborum pariatur aute exercitation exercitation. Sunt aliquip et do amet anim mollit irure enim do enim. Irure ad consequat pariatur elit do. Aute occaecat commodo ipsum ipsum veniam aute tempor.',
-    },
-    {
-      id: '4',
-      title: "Hello I'm a title",
-      subTitle: 'tech',
-      imgUrl: 'https://picsum.photos/id/25/400',
-      paragraph:
-        'Sint officia ipsum dolore irure fugiat officia ex voluptate elit enim duis. Exercitation laborum tempor duis irure. Elit Lorem fugiat ut ullamco dolore nulla tempor occaecat consectetur laborum pariatur aute exercitation exercitation. Sunt aliquip et do amet anim mollit irure enim do enim. Irure ad consequat pariatur elit do. Aute occaecat commodo ipsum ipsum veniam aute tempor.',
-    },
-    {
-      id: '3',
-      title: "Hello I'm a title",
-      subTitle: 'tech',
-      imgUrl: 'https://picsum.photos/id/1009/400',
-      paragraph:
-        'Sint officia ipsum dolore irure fugiat officia ex voluptate elit enim duis. Exercitation laborum tempor duis irure. Elit Lorem fugiat ut ullamco dolore nulla tempor occaecat consectetur laborum pariatur aute exercitation exercitation. Sunt aliquip et do amet anim mollit irure enim do enim. Irure ad consequat pariatur elit do. Aute occaecat commodo ipsum ipsum veniam aute tempor.',
-    },
-    {
-      id: '2',
-      title: "Hello I'm a title",
-      subTitle: 'tech',
-      imgUrl: 'https://picsum.photos/id/56/400',
-      paragraph:
-        'Sint officia ipsum dolore irure fugiat officia ex voluptate elit enim duis. Exercitation laborum tempor duis irure. Elit Lorem fugiat ut ullamco dolore nulla tempor occaecat consectetur laborum pariatur aute exercitation exercitation. Sunt aliquip et do amet anim mollit irure enim do enim. Irure ad consequat pariatur elit do. Aute occaecat commodo ipsum ipsum veniam aute tempor.',
-    },
-  ];
+  const dispatch = useDispatch();
+  const articles = useSelector((state) => state.articles);
+  const isLoading = useSelector((state) => state.isLoading);
+
+  useEffect(() => {
+    dispatch(loadNews('/top-headlines?'));
+  }, []);
 
   return (
     <Screen>
       <View style={styles.container}>
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={articles}
-          renderItem={({item}) => (
-            <Card
-              item={item}
-              onPress={() => navigation.navigate('Article', {item})}
-            />
-          )}
-          keyExtractor={(item) => item.id}
-        />
+        {isLoading ? (
+          <Text>Loading...</Text>
+        ) : (
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={articles}
+            renderItem={({item}) => (
+              <Card
+                item={item}
+                onPress={() => navigation.navigate('Article', {item})}
+              />
+            )}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        )}
       </View>
     </Screen>
   );
