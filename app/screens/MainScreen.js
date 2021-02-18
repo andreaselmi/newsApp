@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {View, StyleSheet, FlatList, Text, RefreshControl} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+import LottieView from 'lottie-react-native';
 
 //components
 import Screen from '../components/Screen';
@@ -26,7 +27,14 @@ const MainScreen = ({navigation}) => {
     <Screen>
       <View style={styles.container}>
         {isLoading ? (
-          <Text>Loading...</Text>
+          <View
+            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <LottieView
+              source={require('../assets/animations/loader.json')}
+              autoPlay
+              loop={isLoading}
+            />
+          </View>
         ) : (
           <FlatList
             showsVerticalScrollIndicator={false}
@@ -51,6 +59,7 @@ const MainScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
+    flex: 1,
   },
 });
 
