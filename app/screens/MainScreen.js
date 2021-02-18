@@ -2,8 +2,11 @@ import React, {useEffect} from 'react';
 import {View, StyleSheet, FlatList, Text, RefreshControl} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
+//components
 import Screen from '../components/Screen';
 import Card from '../components/Card';
+
+//store middleware
 import {loadNews} from '../store/news';
 
 const MainScreen = ({navigation}) => {
