@@ -29,10 +29,12 @@ export default newsSlice.reducer;
 
 export const loadNews = (endpoint) => async (dispatch) => {
   dispatch(newsRequested());
+
   try {
     const response = await api.get(
       endpoint + 'country=it&' + 'apiKey=' + API_KEY,
     );
+
     dispatch(addNews(response.data.articles));
   } catch (error) {
     dispatch(newsRequestFailed(error.message));
