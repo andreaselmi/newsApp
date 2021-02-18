@@ -9,7 +9,7 @@ import Text from './Text';
 import colors from '../config/colors';
 
 const MyCard = ({item, onPress}) => {
-  const {urlToImage, title, author, content} = item;
+  const {urlToImage} = item;
 
   return (
     <TouchableWithoutFeedback onPress={onPress}>
@@ -18,7 +18,9 @@ const MyCard = ({item, onPress}) => {
           <Image
             resizeMode="cover"
             style={{width: '100%', height: '100%'}}
-            source={{uri: urlToImage}}
+            source={
+              urlToImage ? {uri: urlToImage} : require('../assets/topnews.png')
+            }
           />
         </View>
         <View style={styles.headerContainer}>

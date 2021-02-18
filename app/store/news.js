@@ -31,7 +31,7 @@ export const loadNews = (endpoint) => async (dispatch) => {
   dispatch(newsRequested());
   try {
     const response = await api.get(
-      endpoint + 'country=us&' + 'apiKey=' + API_KEY,
+      endpoint + 'country=it&' + 'apiKey=' + API_KEY,
     );
     dispatch(addNews(response.data.articles));
   } catch (error) {

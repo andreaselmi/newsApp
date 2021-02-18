@@ -6,7 +6,7 @@ import colors from '../config/colors';
 import Text from '../components/Text';
 
 const ArticleScreen = ({route, navigation}) => {
-  const {imgUrl, title, subTitle, paragraph} = route.params.item;
+  const {urlToImage, title, author, content} = route.params.item;
   return (
     <View style={styles.container}>
       <View style={styles.iconContainer}>
@@ -25,14 +25,14 @@ const ArticleScreen = ({route, navigation}) => {
         </View>
       </View>
       <View style={styles.imageContainer}>
-        <Image style={styles.image} source={{uri: imgUrl}} />
+        <Image style={styles.image} source={{uri: urlToImage}} />
       </View>
       <View style={styles.headerContainer}>
         <Text style={styles.titleText}>{title}</Text>
-        <Text style={styles.subTitleText}>{subTitle}</Text>
+        <Text style={styles.subTitleText}>{author}</Text>
       </View>
-      <View style={styles.paragraphContainer}>
-        <Text>{paragraph}</Text>
+      <View style={styles.contentContainer}>
+        <Text>{content}</Text>
       </View>
     </View>
   );
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  paragraphContainer: {
+  contentContainer: {
     padding: 20,
   },
   subTitleText: {

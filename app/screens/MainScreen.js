@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {View, StyleSheet, FlatList, Text} from 'react-native';
+import {View, StyleSheet, FlatList, Text, RefreshControl} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
 import Screen from '../components/Screen';
@@ -14,6 +14,10 @@ const MainScreen = ({navigation}) => {
   useEffect(() => {
     dispatch(loadNews('/top-headlines?'));
   }, []);
+
+  const onRefresh = () => {
+    dispatch(loadNews('/top-headlines?'));
+  };
 
   return (
     <Screen>
@@ -31,6 +35,9 @@ const MainScreen = ({navigation}) => {
               />
             )}
             keyExtractor={(item, index) => index.toString()}
+            refreshControl={
+              <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
+            }
           />
         )}
       </View>
