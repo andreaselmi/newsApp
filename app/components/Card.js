@@ -1,5 +1,5 @@
-import React from 'react';
-import {View, StyleSheet, Image, TouchableWithoutFeedback} from 'react-native';
+import React, {useCallback} from 'react';
+import {View, StyleSheet, Image, Linking, TouchableOpacity} from 'react-native';
 import _ from 'lodash';
 
 //components
@@ -9,10 +9,21 @@ import Text from './Text';
 import colors from '../config/colors';
 
 const MyCard = ({item, onPress}) => {
-  const {urlToImage} = item;
+  const {urlToImage, url} = item;
+
+  const openUrl = useCallback(async () => {
+    // Checking if the link is supported for links with custom URL scheme.
+    const supported = await Linking.canOpenURL(url);
+
+    if (supported) {
+      await Linking.openURL(url);
+    } else {
+      Alert.alert(`Don't know how to open this URL: ${url}`);
+    }
+  }, [url]);
 
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
+    <TouchableOpacity onPress={openUrl}>
       <View style={styles.cardContainer}>
         <View style={styles.imageContainer}>
           <Image
@@ -26,15 +37,15 @@ const MyCard = ({item, onPress}) => {
         <View style={styles.headerContainer}>
           <View>
             <Text numberOfLines={3}>
-              {_.get(item, 'title', 'Not avaiable')}
+              {_.get(item, 'title', 'Titolo non disponibile')}
             </Text>
             <Text style={styles.author}>
-              {_.get(item, 'author', 'Not avaiable')}
+              {_.get(item, 'author', 'Autore non disponibile')}
             </Text>
           </View>
         </View>
       </View>
-    </TouchableWithoutFeedback>
+    </TouchableOpacity>
   );
 };
 

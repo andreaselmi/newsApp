@@ -2,11 +2,11 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import AccountScreen from '../screens/AccountScreen';
-import SearchScreen from '../screens/SearchScreen';
+import SearchStackScreen from './SearchStack';
 import colors from '../config/colors';
-import MainStackScreen from '../navigation/MainStack';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import MainScreen from '../screens/MainScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -38,8 +38,8 @@ const AppNavigator = () => {
           borderTopWidth: 0,
         },
       }}>
-      <Tab.Screen name="Main" component={MainStackScreen} />
-      <Tab.Screen name="Search" component={SearchScreen} />
+      <Tab.Screen name="Main" component={MainScreen} />
+      <Tab.Screen name="Search" component={SearchStackScreen} />
       <Tab.Screen name="Account" component={AccountScreen} />
     </Tab.Navigator>
   );
