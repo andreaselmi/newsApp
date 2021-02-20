@@ -6,7 +6,6 @@ import {
   SafeAreaView,
   View,
 } from 'react-native';
-
 import colors from '../config/colors';
 
 const Screen = ({children, style}) => {

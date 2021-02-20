@@ -43,7 +43,7 @@ export const loadNews = (endpoint, country = 'it') => async (dispatch) => {
     );
 
     if (response.status === 200) {
-      dispatch(addNews(response.data));
+      dispatch(addNews(response.data.articles));
       dispatch(stopLoading());
     } else {
       throw new Error(response.data.message);

@@ -1,9 +1,9 @@
 import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
-import newsSlice from './news';
+import reducer from './combineReducers';
 
 export default function () {
   return configureStore({
-    reducer: newsSlice,
+    reducer,
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         serializableCheck: false,

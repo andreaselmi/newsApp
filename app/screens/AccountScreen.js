@@ -12,12 +12,20 @@ import Button from '../components/Button';
 //config
 import defaultStyles from '../config/styles';
 import colors from '../config/colors';
+import {useDispatch, useSelector} from 'react-redux';
+import {activeDarkMode, activeLightMode} from '../store/config';
 
 const AccountScreen = () => {
-  const [isEnabled, setIsEnabled] = useState(true);
+  const darkMode = useSelector((state) => state.config.darkMode);
+  const dispatch = useDispatch();
 
   const logout = () => {
     auth().signOut();
+  };
+
+  const toggleDarkMode = () => {
+    if (darkMode) dispatch(activeLightMode());
+    else dispatch(activeDarkMode());
   };
 
   return (
@@ -33,8 +41,8 @@ const AccountScreen = () => {
         <Text style={defaultStyles.text}>Dark Mode</Text>
         <Switch
           ios_backgroundColor="#3e3e3e"
-          onValueChange={() => setIsEnabled(!isEnabled)}
-          value={isEnabled}
+          onValueChange={toggleDarkMode}
+          value={darkMode}
         />
       </View>
       <View style={styles.buttonContainer}>

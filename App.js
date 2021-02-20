@@ -1,15 +1,14 @@
 import React, {useEffect} from 'react';
 import {StatusBar} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
-import {Provider as PaperProvider} from 'react-native-paper';
-import IonIcon from 'react-native-vector-icons/Ionicons';
+
 import {Provider} from 'react-redux';
 
 //config
-import theme from './app/config/theme';
 
 import Routes from './app/navigation/Routes';
 import configureStore from './app/store/configureStore';
+import UiProvider from './app/config/PaperProvider';
 
 const App = () => {
   const store = configureStore();
@@ -20,18 +19,14 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <PaperProvider
-        theme={theme}
-        settings={{
-          icon: (props) => <IonIcon {...props} />,
-        }}>
+      <UiProvider>
         <StatusBar
           barStyle="light-content"
           translucent
           backgroundColor="transparent"
         />
         <Routes />
-      </PaperProvider>
+      </UiProvider>
     </Provider>
   );
 };

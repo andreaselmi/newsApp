@@ -13,9 +13,9 @@ import {loadNews} from '../store/news';
 
 const MainScreen = ({navigation}) => {
   const dispatch = useDispatch();
-  const articles = useSelector((state) => state.articles);
-  const isLoading = useSelector((state) => state.isLoading);
-  const error = useSelector((state) => state.error);
+  const articles = useSelector((state) => state.news.articles);
+  const isLoading = useSelector((state) => state.news.isLoading);
+  const error = useSelector((state) => state.news.error);
 
   useEffect(() => {
     dispatch(loadNews('/top-headlines?'));
@@ -50,7 +50,7 @@ const MainScreen = ({navigation}) => {
         ) : (
           <FlatList
             showsVerticalScrollIndicator={false}
-            data={articles.articles}
+            data={articles}
             renderItem={({item}) => (
               <Card
                 item={item}
