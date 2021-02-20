@@ -11,19 +11,19 @@ import colors from '../config/colors';
 const MyCard = ({item, onPress}) => {
   const {urlToImage, url} = item;
 
-  const openUrl = useCallback(async () => {
-    // Checking if the link is supported for links with custom URL scheme.
-    const supported = await Linking.canOpenURL(url);
+  // const openUrl = useCallback(async () => {
+  //   // Checking if the link is supported for links with custom URL scheme.
+  //   const supported = await Linking.canOpenURL(url);
 
-    if (supported) {
-      await Linking.openURL(url);
-    } else {
-      Alert.alert(`Don't know how to open this URL: ${url}`);
-    }
-  }, [url]);
+  //   if (supported) {
+  //     await Linking.openURL(url);
+  //   } else {
+  //     Alert.alert(`Don't know how to open this URL: ${url}`);
+  //   }
+  // }, [url]);
 
   return (
-    <TouchableOpacity onPress={openUrl}>
+    <TouchableOpacity onPress={onPress}>
       <View style={styles.cardContainer}>
         <View style={styles.imageContainer}>
           <Image

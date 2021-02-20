@@ -2,11 +2,11 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import AccountScreen from '../screens/AccountScreen';
-import SearchStackScreen from './SearchStack';
 import colors from '../config/colors';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import MainScreen from '../screens/MainScreen';
+import MainStackScreen from './MainStack';
+import SearchScreen from '../screens/SearchScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,9 +17,9 @@ const AppNavigator = () => {
         tabBarIcon: ({focused, color, size}) => {
           let iconName;
 
-          if (route.name === 'Main') {
+          if (route.name === 'TopNews') {
             iconName = focused ? 'newspaper' : 'newspaper-outline';
-          } else if (route.name === 'Search') {
+          } else if (route.name === 'Cerca') {
             iconName = focused ? 'search' : 'search-outline';
           } else if (route.name === 'Account') {
             iconName = focused ? 'person' : 'person-outline';
@@ -38,8 +38,8 @@ const AppNavigator = () => {
           borderTopWidth: 0,
         },
       }}>
-      <Tab.Screen name="Main" component={MainScreen} />
-      <Tab.Screen name="Search" component={SearchStackScreen} />
+      <Tab.Screen name="TopNews" component={MainStackScreen} />
+      <Tab.Screen name="Cerca" component={SearchScreen} />
       <Tab.Screen name="Account" component={AccountScreen} />
     </Tab.Navigator>
   );

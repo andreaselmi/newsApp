@@ -41,7 +41,7 @@ export const loadNews = (endpoint, country = 'it') => async (dispatch) => {
     const response = await api.get(
       endpoint + 'country=' + country + '&apiKey=' + API_KEY,
     );
-    console.log(response);
+
     if (response.status === 200) {
       dispatch(addNews(response.data));
       dispatch(stopLoading());

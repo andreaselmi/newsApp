@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {View, StyleSheet, FlatList, RefreshControl, Button} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import LottieView from 'lottie-react-native';
+import {WebView} from 'react-native-webview';
 //components
 import Screen from '../components/Screen';
 import Card from '../components/Card';
@@ -53,7 +54,7 @@ const MainScreen = ({navigation}) => {
             renderItem={({item}) => (
               <Card
                 item={item}
-                onPress={() => navigation.navigate('Article', {item})}
+                onPress={() => navigation.navigate('WebView', {url: item.url})}
               />
             )}
             keyExtractor={(item, index) => index.toString()}
