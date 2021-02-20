@@ -1,13 +1,15 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import colors from '../config/colors';
 import Text from './Text';
 
-const SectionText = ({item}) => {
+const SectionText = ({item, onPress}) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.sectionItem}>{item.name}</Text>
-    </View>
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.container}>
+        <Text style={styles.sectionItem}>{item.name}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 

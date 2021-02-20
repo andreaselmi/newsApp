@@ -1,11 +1,16 @@
-import React from 'react';
-import {View, Text} from 'react-native';
+import React, {useEffect} from 'react';
 
-const SearchedArticlesScreen = () => {
+//components
+import Screen from '../components/Screen';
+import Text from '../components/Text';
+
+//redux store
+
+const SearchedArticlesScreen = ({route}) => {
   return (
-    <View>
+    <Screen>
       <Text>Hello Articles</Text>
-    </View>
+    </Screen>
   );
 };
 

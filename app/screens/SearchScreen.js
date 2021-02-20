@@ -6,13 +6,10 @@ import Screen from '../components/Screen';
 import TextInput from '../components/form/TextInput';
 import Text from '../components/Text';
 import colors from '../config/colors';
-import SectionText from '../components/SectionText';
-
-import sections from '../array/sections';
 
 //config
 
-const SearchScreen = () => {
+const SearchScreen = ({navigation}) => {
   return (
     <Screen>
       <View style={styles.container}>
@@ -22,13 +19,18 @@ const SearchScreen = () => {
           placeholder="search"
         />
         <View style={styles.sectionsContainer}>
-          <Text style={styles.sectionsTitle}>Sections</Text>
-          <FlatList
+          <Text style={styles.sectionsTitle}>Results</Text>
+          {/* <FlatList
             showsVerticalScrollIndicator={false}
             data={sections}
-            renderItem={({item}) => <SectionText item={item} />}
+            renderItem={({item}) => (
+              <SectionText
+                onPress={() => navigation.navigate('SearchedArticles')}
+                item={item}
+              />
+            )}
             key={(item) => item.id}
-          />
+          /> */}
         </View>
       </View>
     </Screen>

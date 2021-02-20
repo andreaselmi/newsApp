@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
-import {View, StyleSheet, FlatList, Text, RefreshControl} from 'react-native';
+import {View, StyleSheet, FlatList, RefreshControl, Button} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import LottieView from 'lottie-react-native';
-
 //components
 import Screen from '../components/Screen';
 import Card from '../components/Card';
+import Text from '../components/Text';
 
 //store middleware
 import {loadNews} from '../store/news';
@@ -14,6 +14,7 @@ const MainScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const articles = useSelector((state) => state.articles);
   const isLoading = useSelector((state) => state.isLoading);
+  const error = useSelector((state) => state.error);
 
   useEffect(() => {
     dispatch(loadNews('/top-headlines?'));
@@ -26,6 +27,15 @@ const MainScreen = ({navigation}) => {
   return (
     <Screen>
       <View style={styles.container}>
+        {error && (
+          <View style={{marginTop: 20}}>
+            <Text>Impossibile caricare le notizie</Text>
+            <Button
+              title="Riprova"
+              onPress={() => dispatch(loadNews('/top-headlines?'))}
+            />
+          </View>
+        )}
         {isLoading ? (
           <View
             style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -39,7 +49,7 @@ const MainScreen = ({navigation}) => {
         ) : (
           <FlatList
             showsVerticalScrollIndicator={false}
-            data={articles}
+            data={articles.articles}
             renderItem={({item}) => (
               <Card
                 item={item}

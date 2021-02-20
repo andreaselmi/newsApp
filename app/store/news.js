@@ -12,31 +12,44 @@ const newsSlice = createSlice({
   reducers: {
     addNews: (state, action) => {
       state.articles = action.payload;
-      state.isLoading = false;
+      error = null;
     },
     newsRequested: (state, action) => {
       state.isLoading = true;
     },
     newsRequestFailed: (state, action) => {
-      state.isLoading = false;
       state.error = action.payload;
+    },
+    stopLoading: (state, action) => {
+      state.isLoading = false;
     },
   },
 });
 
-export const {addNews, newsRequested, newsRequestFailed} = newsSlice.actions;
+export const {
+  addNews,
+  newsRequested,
+  newsRequestFailed,
+  stopLoading,
+} = newsSlice.actions;
 export default newsSlice.reducer;
 
-export const loadNews = (endpoint) => async (dispatch) => {
+export const loadNews = (endpoint, country = 'it') => async (dispatch) => {
   dispatch(newsRequested());
 
   try {
     const response = await api.get(
-      endpoint + 'country=it&' + 'apiKey=' + API_KEY,
+      endpoint + 'country=' + country + '&apiKey=' + API_KEY,
     );
-
-    dispatch(addNews(response.data.articles));
+    console.log(response);
+    if (response.status === 200) {
+      dispatch(addNews(response.data));
+      dispatch(stopLoading());
+    } else {
+      throw new Error(response.data.message);
+    }
   } catch (error) {
     dispatch(newsRequestFailed(error.message));
+    dispatch(stopLoading());
   }
 };
