@@ -9,9 +9,7 @@ import Screen from '../components/Screen';
 import FormField from '../components/form/FormField';
 import Button from '../components/Button';
 import Text from '../components/Text';
-//config
-import defaultStyle from '../config/styles';
-import colors from '../config/colors';
+import {useSelector} from 'react-redux';
 
 let validationSchema = yup.object().shape({
   email: yup.string().email().required(),
@@ -19,6 +17,8 @@ let validationSchema = yup.object().shape({
 });
 
 const LoginScreen = () => {
+  const colors = useSelector((state) => state.config.colors);
+
   const login = async (values) => {
     try {
       await auth().signInWithEmailAndPassword(values.email, values.password);
@@ -28,13 +28,11 @@ const LoginScreen = () => {
   };
 
   return (
-    <Screen style={{backgroundColor: defaultStyle.colors.medium}}>
+    <Screen style={{backgroundColor: colors.backgroundScreen}}>
       <View style={styles.container}>
         <View style={styles.containerHeader}>
-          <Text style={[defaultStyle.text, styles.pageTitle]}>Accedi</Text>
-          <Text style={styles.pageSubtitle}>
-            Accedi per visualizzare i tuoi articoli salvati
-          </Text>
+          <Text style={styles.pageTitle}>Accedi</Text>
+          <Text>Accedi per visualizzare i tuoi articoli salvati</Text>
         </View>
         <View style={styles.containerForm}>
           <Formik
@@ -106,10 +104,6 @@ const styles = StyleSheet.create({
   pageTitle: {
     fontSize: 40,
     fontWeight: 'bold',
-    color: colors.white,
-  },
-  pageSubtitle: {
-    color: colors.white,
   },
 });
 

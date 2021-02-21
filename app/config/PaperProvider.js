@@ -4,37 +4,37 @@ import {DefaultTheme} from 'react-native-paper';
 import {useSelector} from 'react-redux';
 
 //config
-import colors from './colors';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 
-export const darkTheme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: colors.primary,
-    background: colors.darkGray,
-    text: colors.white,
-    error: colors.danger,
-    placeholder: colors.placeholder,
-  },
-};
-
-export const lightTheme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: colors.primary,
-    error: colors.danger,
-    placeholder: colors.placeholder,
-  },
-};
-
 const UiProvider = ({children}) => {
-  const darkMode = useSelector((state) => state.config.darkMode);
+  const isDarkMode = useSelector((state) => state.config.isDarkMode);
+  const colors = useSelector((state) => state.config.colors);
+
+  const darkTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: colors.primary,
+      background: colors.inputBackgroundColor,
+      text: colors.textColor,
+      error: colors.danger,
+      placeholder: colors.placeholder,
+    },
+  };
+
+  const lightTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: colors.primary,
+      error: colors.danger,
+      placeholder: colors.placeholder,
+    },
+  };
 
   return (
     <PaperProvider
-      theme={darkMode ? darkTheme : lightTheme}
+      theme={isDarkMode ? darkTheme : lightTheme}
       settings={{
         icon: (props) => <IonIcon {...props} />,
       }}>

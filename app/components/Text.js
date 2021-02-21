@@ -1,13 +1,23 @@
 import React from 'react';
-import {Text, Platform} from 'react-native';
+import {Text, StyleSheet} from 'react-native';
+import {useSelector} from 'react-redux';
 
-import defaultStyles from '../config/styles';
 const AppText = ({children, style, numberOfLines}) => {
+  const colors = useSelector((state) => state.config.colors);
   return (
-    <Text numberOfLines={numberOfLines} style={[defaultStyles.text, style]}>
+    <Text
+      numberOfLines={numberOfLines}
+      style={[styles.text, style, {color: colors.textColor}]}>
       {children}
     </Text>
   );
 };
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 18,
+    fontFamily: Platform.OS === 'android' ? 'Roboto' : 'Avenir',
+  },
+});
 
 export default AppText;

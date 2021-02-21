@@ -1,30 +1,27 @@
 import React, {useCallback} from 'react';
 import {View, StyleSheet, Image, Linking, TouchableOpacity} from 'react-native';
 import _ from 'lodash';
+import {useSelector} from 'react-redux';
 
 //components
 import Text from './Text';
 
 //config
-import colors from '../config/colors';
 
 const MyCard = ({item, onPress}) => {
-  const {urlToImage, url} = item;
-
-  // const openUrl = useCallback(async () => {
-  //   // Checking if the link is supported for links with custom URL scheme.
-  //   const supported = await Linking.canOpenURL(url);
-
-  //   if (supported) {
-  //     await Linking.openURL(url);
-  //   } else {
-  //     Alert.alert(`Don't know how to open this URL: ${url}`);
-  //   }
-  // }, [url]);
+  const colors = useSelector((state) => state.config.colors);
+  const {urlToImage} = item;
 
   return (
     <TouchableOpacity onPress={onPress}>
-      <View style={styles.cardContainer}>
+      <View
+        style={[
+          styles.cardContainer,
+          {
+            backgroundColor: colors.backgroundCardColor,
+            shadowColor: colors.shadow,
+          },
+        ]}>
         <View style={styles.imageContainer}>
           <Image
             resizeMode="cover"
@@ -39,7 +36,7 @@ const MyCard = ({item, onPress}) => {
             <Text numberOfLines={3}>
               {_.get(item, 'title', 'Titolo non disponibile')}
             </Text>
-            <Text style={styles.author}>
+            <Text style={{fontSize: 15, color: colors.placeholder}}>
               {_.get(item, 'author', 'Autore non disponibile')}
             </Text>
           </View>
@@ -50,16 +47,10 @@ const MyCard = ({item, onPress}) => {
 };
 
 const styles = StyleSheet.create({
-  author: {
-    fontSize: 15,
-    color: colors.placeholder,
-  },
   cardContainer: {
-    backgroundColor: colors.dark,
     marginTop: 20,
     height: 275,
     borderRadius: 10,
-    shadowColor: colors.black,
     shadowOffset: {
       width: 0,
       height: 2,

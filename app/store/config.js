@@ -1,20 +1,19 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {useSelector} from 'react-redux';
+import {darkMode, lightMode} from '../config/colors';
 
 const configSlice = createSlice({
   name: 'config',
   initialState: {
-    darkMode: false,
+    isDarkMode: true,
+    colors: {...darkMode},
   },
   reducers: {
-    activeDarkMode: (state, action) => {
-      state.darkMode = true;
-    },
-    activeLightMode: (state, action) => {
-      state.darkMode = false;
+    toggleDarkMode: (state, action) => {
+      state.isDarkMode = !state.isDarkMode;
+      state.colors = state.isDarkMode ? {...darkMode} : {...lightMode};
     },
   },
 });
 
-export const {activeDarkMode, activeLightMode} = configSlice.actions;
+export const {toggleDarkMode} = configSlice.actions;
 export default configSlice.reducer;

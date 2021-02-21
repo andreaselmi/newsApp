@@ -8,9 +8,7 @@ import auth from '@react-native-firebase/auth';
 import Screen from '../components/Screen';
 import FormField from '../components/form/FormField';
 import Button from '../components/Button';
-//config
-import defaultStyle from '../config/styles';
-import colors from '../config/colors';
+import {useSelector} from 'react-redux';
 
 let validationSchema = yup.object().shape({
   email: yup.string().email().required(),
@@ -18,6 +16,8 @@ let validationSchema = yup.object().shape({
 });
 
 const RegisterScreen = () => {
+  const colors = useSelector((state) => state.config.colors);
+
   const register = async (values) => {
     try {
       await auth().createUserWithEmailAndPassword(
@@ -38,11 +38,11 @@ const RegisterScreen = () => {
   };
 
   return (
-    <Screen style={{backgroundColor: defaultStyle.colors.medium}}>
+    <Screen>
       <View style={styles.container}>
         <View style={styles.containerHeader}>
-          <Text style={[defaultStyle.text, styles.pageTitle]}>Registrati</Text>
-          <Text style={styles.pageSubtitle}>
+          <Text style={styles.pageTitle}>Registrati</Text>
+          <Text>
             Crea un account per avere la possibilità di salvare gli articoli e
             leggerli ovunque, anche offline
           </Text>
@@ -104,12 +104,8 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   pageTitle: {
-    color: colors.white,
     fontSize: 40,
     fontWeight: 'bold',
-  },
-  pageSubtitle: {
-    color: colors.white,
   },
 });
 

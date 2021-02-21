@@ -5,11 +5,12 @@ import {FlatList, StyleSheet, View} from 'react-native';
 import Screen from '../components/Screen';
 import TextInput from '../components/form/TextInput';
 import Text from '../components/Text';
-import colors from '../config/colors';
+import {useSelector} from 'react-redux';
 
 //config
 
 const SearchScreen = ({navigation}) => {
+  const colors = useSelector((state) => state.config.colors);
   return (
     <Screen>
       <View style={styles.container}>
@@ -19,7 +20,9 @@ const SearchScreen = ({navigation}) => {
           placeholder="search"
         />
         <View style={styles.sectionsContainer}>
-          <Text style={styles.sectionsTitle}>Results</Text>
+          <Text style={[styles.sectionsTitle, {color: colors.placeholder}]}>
+            Results
+          </Text>
           {/* <FlatList
             showsVerticalScrollIndicator={false}
             data={sections}
@@ -46,7 +49,6 @@ const styles = StyleSheet.create({
   sectionsTitle: {
     fontSize: 36,
     fontWeight: 'bold',
-    color: colors.placeholder,
   },
 });
 

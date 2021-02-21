@@ -7,10 +7,12 @@ import colors from '../config/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MainStackScreen from './MainStack';
 import SearchScreen from '../screens/SearchScreen';
+import {useSelector} from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 
 const AppNavigator = () => {
+  const colors = useSelector((state) => state.config.colors);
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
@@ -29,12 +31,12 @@ const AppNavigator = () => {
         },
       })}
       tabBarOptions={{
-        activeTintColor: '#fff',
-        inactiveTintColor: 'lightgray',
-        activeBackgroundColor: colors.dark,
-        inactiveBackgroundColor: colors.dark,
+        activeTintColor: colors.activeIconColor,
+        inactiveTintColor: colors.inactiveIconColor,
+        activeBackgroundColor: colors.backgroundCardColor,
+        inactiveBackgroundColor: colors.backgroundCardColor,
         style: {
-          backgroundColor: colors.dark,
+          backgroundColor: colors.backgroundCardColor,
           borderTopWidth: 0,
         },
       }}>
