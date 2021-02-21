@@ -9,27 +9,41 @@ import Card from '../components/Card';
 import Text from '../components/Text';
 
 //store middleware
-import {loadNews} from '../store/news';
+import {loadNews, loadTopNews, apiCallBegan} from '../store/news';
 
 const MainScreen = ({navigation}) => {
   const dispatch = useDispatch();
-  const articles = useSelector((state) => state.news.articles);
+  const topArticles = useSelector((state) => state.news.topArticles);
   const isLoading = useSelector((state) => state.news.isLoading);
   const error = useSelector((state) => state.news.error);
 
   useEffect(() => {
-    dispatch(loadNews('/top-headlines?'));
+    dispatch(
+      apiCallBegan({
+        endpoint: '/top-headlines?',
+        country: 'IT',
+        onSuccess: 'news/addNews',
+        onError: 'news/newsRequestFailed',
+      }),
+    );
   }, []);
 
   const onRefresh = () => {
-    dispatch(loadNews('/top-headlines?'));
+    dispatch(
+      apiCallBegan({
+        endpoint: '/top-headlines?',
+        country: 'IT',
+        onSuccess: 'news/addNews',
+        onError: 'news/newsRequestFailed',
+      }),
+    );
   };
 
   return (
     <Screen>
       <View style={styles.container}>
         {error && (
-          <View style={{marginTop: 20}}>
+          <View style={styles.errorContainer}>
             <Text>Impossibile caricare le notizie</Text>
             <Button
               title="Riprova"
@@ -50,7 +64,7 @@ const MainScreen = ({navigation}) => {
         ) : (
           <FlatList
             showsVerticalScrollIndicator={false}
-            data={articles}
+            data={topArticles}
             renderItem={({item}) => (
               <Card
                 item={item}
@@ -72,6 +86,10 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
     flex: 1,
+  },
+  errorContainer: {
+    marginTop: 50,
+    alignItems: 'center',
   },
 });
 

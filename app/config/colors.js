@@ -16,12 +16,12 @@ export const lightMode = {
   backgroundCardColor: colors.light,
   backgroundScreen: colors.white,
   danger: colors.danger,
+  iconColor: colors.darkGray,
   inactiveIconColor: colors.medium,
   placeholder: colors.placeholder,
   primary: colors.primary,
-  textColor: colors.dark,
-  iconColor: colors.white,
   shadow: colors.light,
+  textColor: colors.dark,
 };
 
 export const darkMode = {
@@ -29,10 +29,10 @@ export const darkMode = {
   backgroundCardColor: colors.dark,
   backgroundScreen: colors.medium,
   danger: colors.danger,
+  iconColor: colors.white,
   inputBackgroundColor: colors.darkGray,
   placeholder: colors.placeholder,
   primary: colors.primary,
   shadow: colors.black,
   textColor: colors.white,
-  iconColor: colors.white,
 };

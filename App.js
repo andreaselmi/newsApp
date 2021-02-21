@@ -1,10 +1,8 @@
 import React, {useEffect} from 'react';
-import {StatusBar} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
-
 import {Provider} from 'react-redux';
 
-//config
+import StatusBar from './app/components/StatusBar';
 
 import Routes from './app/navigation/Routes';
 import configureStore from './app/store/configureStore';
@@ -19,12 +17,8 @@ const App = () => {
 
   return (
     <Provider store={store}>
+      <StatusBar />
       <UiProvider>
-        <StatusBar
-          barStyle="light-content"
-          translucent
-          backgroundColor="transparent"
-        />
         <Routes />
       </UiProvider>
     </Provider>
