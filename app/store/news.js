@@ -22,7 +22,7 @@ const newsSlice = createSlice({
     newsRequested: (state, action) => {
       state.isLoading = true;
     },
-    newsRequestFailed: (state, action) => {
+    requestFailed: (state, action) => {
       state.error = action.payload;
     },
     stopLoading: (state, action) => {
@@ -31,14 +31,10 @@ const newsSlice = createSlice({
   },
 });
 
-export const {
-  addNews,
-  newsRequested,
-  newsRequestFailed,
-  stopLoading,
-} = newsSlice.actions;
+const {newsRequested, stopLoading} = newsSlice.actions;
 export default newsSlice.reducer;
 
+//actions
 export const apiCallBegan = createAction('apiCallBegan');
 
 export const loadTopNews = () => {
@@ -46,7 +42,7 @@ export const loadTopNews = () => {
     endpoint: '/top-headlines?',
     country: 'IT',
     onSuccess: 'news/addNews',
-    onError: 'news/newsRequestFailed',
+    onError: 'news/requestFailed',
   });
 };
 
@@ -55,10 +51,11 @@ export const searchNews = (query) => {
     endpoint: '/everything?q=' + query + '&',
     country: '',
     onSuccess: 'news/addSearchedNews',
-    onError: 'news/newsRequestFailed',
+    onError: 'news/requestFailed',
   });
 };
 
+//custom middleware fetchData
 export const apiMiddleware = ({dispatch}) => (next) => async (action) => {
   if (action.type !== 'apiCallBegan') return next(action);
   dispatch(newsRequested());
@@ -69,7 +66,6 @@ export const apiMiddleware = ({dispatch}) => (next) => async (action) => {
       endpoint + 'country=' + country + '&apiKey=' + API_KEY,
     );
 
-    console.log(response);
     if (response.status === 200) {
       dispatch({type: onSuccess, payload: response.data.articles});
       dispatch(stopLoading());

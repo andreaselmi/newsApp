@@ -17,12 +17,20 @@ const SearchScreen = ({navigation}) => {
   const searchedArticles = useSelector((state) => state.news.searchedArticles);
   const dispatch = useDispatch();
 
+  //TODO aggiungere gestione errori, se non ci sono risultati stamparlo a schermo
+  //aggiungere loading
+
+  //aggiungere lunghezza max al titolo
+
   return (
     <Screen>
       <View style={styles.container}>
         <Formik
           initialValues={{search: ''}}
-          onSubmit={(values) => dispatch(searchNews(values.search))}>
+          onSubmit={(values, {resetForm}) => {
+            dispatch(searchNews(values.search));
+            resetForm();
+          }}>
           {({handleChange, handleSubmit, values}) => (
             <TextInput
               iconColor={colors.placeholder}

@@ -7,7 +7,7 @@ const AppText = ({children, style, numberOfLines}) => {
   return (
     <Text
       numberOfLines={numberOfLines}
-      style={[styles.text, style, {color: colors.textColor}]}>
+      style={[styles.text, {color: colors.textColor}, style]}>
       {children}
     </Text>
   );
