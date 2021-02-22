@@ -41,8 +41,6 @@ export default newsSlice.reducer;
 
 export const apiCallBegan = createAction('apiCallBegan');
 
-// TODO implementare questa funzione per migliorare il codice
-
 export const loadTopNews = () => {
   return apiCallBegan({
     endpoint: '/top-headlines?',
