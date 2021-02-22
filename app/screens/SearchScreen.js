@@ -1,39 +1,57 @@
 import React from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
+import {Formik} from 'formik';
 
 //components
 import Screen from '../components/Screen';
 import TextInput from '../components/form/TextInput';
 import Text from '../components/Text';
-import {useSelector} from 'react-redux';
 
-//config
+//store
+import {searchNews} from '../store/news';
+import Card from '../components/Card';
 
 const SearchScreen = ({navigation}) => {
   const colors = useSelector((state) => state.config.colors);
+  const searchedArticles = useSelector((state) => state.news.searchedArticles);
+  const dispatch = useDispatch();
+
   return (
     <Screen>
       <View style={styles.container}>
-        <TextInput
-          iconColor={colors.placeholder}
-          iconName="search"
-          placeholder="search"
-        />
+        <Formik
+          initialValues={{search: ''}}
+          onSubmit={(values) => dispatch(searchNews(values.search))}>
+          {({handleChange, handleSubmit, values}) => (
+            <TextInput
+              iconColor={colors.placeholder}
+              iconName="search"
+              mode="flat"
+              name="search"
+              placeholder="search"
+              onChangeText={handleChange('search')}
+              value={values.search}
+              onSubmitEditing={handleSubmit}
+            />
+          )}
+        </Formik>
+
         <View style={styles.sectionsContainer}>
           <Text style={[styles.sectionsTitle, {color: colors.placeholder}]}>
             Results
           </Text>
-          {/* <FlatList
+          <FlatList
             showsVerticalScrollIndicator={false}
-            data={sections}
+            data={searchedArticles}
             renderItem={({item}) => (
-              <SectionText
-                onPress={() => navigation.navigate('SearchedArticles')}
+              <Card
                 item={item}
+                onPress={() => navigation.navigate('WebView', {url: item.url})}
               />
             )}
-            key={(item) => item.id}
-          /> */}
+            keyExtractor={(item, index) => index.toString()}
+          />
         </View>
       </View>
     </Screen>

@@ -1,4 +1,4 @@
-import {createSelector, createSlice, createAction} from '@reduxjs/toolkit';
+import {createSlice, createAction} from '@reduxjs/toolkit';
 import api from '../api/api';
 import {API_KEY} from '@env';
 
@@ -13,6 +13,10 @@ const newsSlice = createSlice({
   reducers: {
     addNews: (state, action) => {
       state.topArticles = action.payload;
+      error = null;
+    },
+    addSearchedNews: (state, action) => {
+      state.searchedArticles = action.payload;
       error = null;
     },
     newsRequested: (state, action) => {
@@ -39,14 +43,23 @@ export const apiCallBegan = createAction('apiCallBegan');
 
 // TODO implementare questa funzione per migliorare il codice
 
-// export const loadTopNews = () => {
-//   apiCallBegan({
-//     url: '/top-headlines?',
-//     country: 'IT',
-//     onSuccess: 'addNews',
-//     onError: 'newsRequestFailed',
-//   });
-// };
+export const loadTopNews = () => {
+  return apiCallBegan({
+    endpoint: '/top-headlines?',
+    country: 'IT',
+    onSuccess: 'news/addNews',
+    onError: 'news/newsRequestFailed',
+  });
+};
+
+export const searchNews = (query) => {
+  return apiCallBegan({
+    endpoint: '/everything?q=' + query + '&',
+    country: '',
+    onSuccess: 'news/addSearchedNews',
+    onError: 'news/newsRequestFailed',
+  });
+};
 
 export const apiMiddleware = ({dispatch}) => (next) => async (action) => {
   if (action.type !== 'apiCallBegan') return next(action);
@@ -58,6 +71,7 @@ export const apiMiddleware = ({dispatch}) => (next) => async (action) => {
       endpoint + 'country=' + country + '&apiKey=' + API_KEY,
     );
 
+    console.log(response);
     if (response.status === 200) {
       dispatch({type: onSuccess, payload: response.data.articles});
       dispatch(stopLoading());
