@@ -37,6 +37,7 @@ const RegisterScreen = () => {
     }
   };
 
+  // TODO aggiungere visualizzazione errori per utente già registrato o password debole
   return (
     <Screen>
       <View style={styles.container}>

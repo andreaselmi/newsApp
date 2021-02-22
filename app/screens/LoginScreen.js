@@ -27,6 +27,8 @@ const LoginScreen = () => {
     }
   };
 
+  // TODO aggiungere visualizzazione errori per login non riuscito / errato
+
   return (
     <Screen style={{backgroundColor: colors.backgroundScreen}}>
       <View style={styles.container}>
