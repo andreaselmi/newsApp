@@ -9,7 +9,7 @@ import Card from '../components/Card';
 import Text from '../components/Text';
 
 //store middleware
-import {loadNews, loadTopNews, apiCallBegan} from '../store/news';
+import {apiCallBegan} from '../store/news';
 
 const MainScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -45,10 +45,7 @@ const MainScreen = ({navigation}) => {
         {error && (
           <View style={styles.errorContainer}>
             <Text>Impossibile caricare le notizie</Text>
-            <Button
-              title="Riprova"
-              onPress={() => dispatch(loadNews('/top-headlines?'))}
-            />
+            <Button title="Riprova" onPress={onRefresh} />
           </View>
         )}
         {isLoading ? (
