@@ -1,6 +1,6 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import IonIcons from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
 
 //Screens
@@ -28,7 +28,7 @@ const AppNavigator = () => {
             iconName = focused ? 'person' : 'person-outline';
           }
 
-          return <Ionicons name={iconName} size={size} color={color} />;
+          return <IonIcons name={iconName} size={size} color={color} />;
         },
       })}
       tabBarOptions={{

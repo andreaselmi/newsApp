@@ -12,27 +12,35 @@ const newsSlice = createSlice({
     error: null,
   },
   reducers: {
-    addNews: (state, action) => {
+    saveTopNews: (state, action) => {
       state.topArticles = action.payload;
-      error = null;
+      state.error = null;
+      state.isLoading = false;
     },
     addSearchedNews: (state, action) => {
       state.searchedArticles = action.payload;
-      error = null;
+      state.error = null;
+      state.isLoading = false;
     },
-    newsRequested: (state, action) => {
+    toggleSaveArticle: (state, action) => {
+      const alreadySaved = state.savedArticles.findIndex(
+        (article) => article['url'] === action.payload.url,
+      );
+      if (alreadySaved === -1) {
+        state.savedArticles.push(action.payload);
+      } else state.savedArticles.splice(alreadySaved, 1);
+    },
+    newsRequested: (state) => {
       state.isLoading = true;
     },
     requestFailed: (state, action) => {
       state.error = action.payload;
-    },
-    stopLoading: (state, action) => {
       state.isLoading = false;
     },
   },
 });
 
-const {newsRequested, stopLoading} = newsSlice.actions;
+export const {toggleSaveArticle} = newsSlice.actions;
 export default newsSlice.reducer;
 
 //actions
@@ -42,7 +50,7 @@ export const loadTopNews = () => {
   return apiCallBegan({
     endpoint: '/top-headlines?',
     country: 'IT',
-    onSuccess: 'news/addNews',
+    onSuccess: 'news/saveTopNews',
     onError: 'news/requestFailed',
   });
 };
@@ -55,6 +63,8 @@ export const searchNews = (query) => {
     onError: 'news/requestFailed',
   });
 };
+
+const {newsRequested} = newsSlice.actions;
 
 //custom middleware for fetching Data
 export const apiMiddleware = ({dispatch}) => (next) => async (action) => {
@@ -69,12 +79,10 @@ export const apiMiddleware = ({dispatch}) => (next) => async (action) => {
 
     if (response.status === 200) {
       dispatch({type: onSuccess, payload: response.data.articles});
-      dispatch(stopLoading());
     } else {
       throw new Error(response.data.message);
     }
   } catch (error) {
     dispatch({type: onError, payload: error});
-    dispatch(stopLoading());
   }
 };

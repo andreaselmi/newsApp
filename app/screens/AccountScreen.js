@@ -26,7 +26,7 @@ const AccountScreen = () => {
 
   return (
     <Screen>
-      <AccountItem text={user ? user.email : 'youremailhere'} />
+      <AccountItem text={user.email} />
       <AccountItem
         text="Hai ancora 2 articoli da leggere"
         iconName="chevron-forward"

@@ -1,16 +1,31 @@
-import React, {useCallback} from 'react';
-import {View, StyleSheet, Image, Linking, TouchableOpacity} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import _ from 'lodash';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 //components
 import Text from './Text';
 
-//config
+import {toggleSaveArticle} from '../store/news';
+import ToggleIcon from './ToggleIcon';
 
 const MyCard = ({item, onPress}) => {
+  //select from store
   const colors = useSelector((state) => state.config.colors);
+  const savedArticles = useSelector((state) => state.news.savedArticles);
+  const dispatch = useDispatch();
+
+  const [isSaved, setIsSaved] = useState(false);
   const {urlToImage} = item;
+
+  useEffect(() => {
+    const alreadySaved = savedArticles.findIndex(
+      (article) => article['url'] === item.url,
+    );
+    if (alreadySaved === -1) {
+      setIsSaved(false);
+    } else setIsSaved(true);
+  }, [savedArticles]);
 
   return (
     <TouchableOpacity onPress={onPress}>
@@ -25,10 +40,18 @@ const MyCard = ({item, onPress}) => {
         <View style={styles.imageContainer}>
           <Image
             resizeMode="cover"
-            style={{width: '100%', height: '100%'}}
             source={
               urlToImage ? {uri: urlToImage} : require('../assets/topnews.png')
             }
+            style={{width: '100%', height: '100%'}}
+          />
+          <ToggleIcon
+            active="bookmark"
+            color={colors.primary}
+            inactive="bookmark-outline"
+            isActive={isSaved}
+            onPress={() => dispatch(toggleSaveArticle(item))}
+            style={styles.iconContainer}
           />
         </View>
         <View style={styles.headerContainer}>
@@ -50,25 +73,29 @@ const MyCard = ({item, onPress}) => {
 
 const styles = StyleSheet.create({
   cardContainer: {
-    marginTop: 20,
-    height: 275,
     borderRadius: 10,
+    elevation: 5,
+    height: 275,
+    marginTop: 20,
     shadowOffset: {
       width: 0,
       height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-
-    elevation: 5,
   },
   headerContainer: {
     padding: 10,
   },
+  iconContainer: {
+    position: 'absolute',
+    right: 10,
+    top: 10,
+  },
   imageContainer: {
-    overflow: 'hidden',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
+    overflow: 'hidden',
     height: 150,
   },
 });

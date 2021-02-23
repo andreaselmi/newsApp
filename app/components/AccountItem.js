@@ -1,12 +1,13 @@
 import React from 'react';
 import {View, StyleSheet, Switch} from 'react-native';
 import {useSelector} from 'react-redux';
-import IonIcon from 'react-native-vector-icons/Ionicons';
+import IonIcons from 'react-native-vector-icons/Ionicons';
 
 //components
 import Text from './Text';
 
 const AccountItem = ({text, iconName, toggleValue, switcher}) => {
+  //select from store
   const colors = useSelector((state) => state.config.colors);
 
   return (
@@ -17,11 +18,11 @@ const AccountItem = ({text, iconName, toggleValue, switcher}) => {
       ]}>
       <Text>{text}</Text>
       {iconName && (
-        <IonIcon name={iconName} size={24} color={colors.iconColor} />
+        <IonIcons name={iconName} size={24} color={colors.iconColor} />
       )}
       {switcher && (
         <Switch
-          ios_backgroundColor="#3e3e3e"
+          ios_backgroundColor={colors.switchBackground}
           onValueChange={switcher}
           value={toggleValue}
         />
