@@ -1,13 +1,13 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
-import {FlatList, RefreshControl, StyleSheet, View} from 'react-native';
-import LottieView from 'lottie-react-native';
+import {FlatList, RefreshControl, StyleSheet, View, Button} from 'react-native';
 
 //components
 import Card from './Card';
 import Text from './Text';
+import Loader from './Loader';
 
-const ListingsArticles = ({data, onRefresh = '', onPress}) => {
+const ListingsArticles = ({data, onRefresh = null, onPress}) => {
   const isLoading = useSelector((state) => state.news.isLoading);
   const error = useSelector((state) => state.news.error);
 
@@ -16,18 +16,11 @@ const ListingsArticles = ({data, onRefresh = '', onPress}) => {
       {error && (
         <View style={styles.errorContainer}>
           <Text>Impossibile caricare le notizie</Text>
-          <Button title="Riprova" onPress={onRefresh} />
+          {onRefresh && <Button title="Riprova" onPress={onRefresh} />}
         </View>
       )}
       {isLoading ? (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <LottieView
-            style={{width: 200, height: 200}}
-            source={require('../assets/animations/loader.json')}
-            autoPlay
-            loop={isLoading}
-          />
-        </View>
+        <Loader isLoading={isLoading} />
       ) : (
         <FlatList
           showsVerticalScrollIndicator={false}

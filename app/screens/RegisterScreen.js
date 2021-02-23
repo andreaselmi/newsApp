@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Formik} from 'formik';
 import * as yup from 'yup';
@@ -13,13 +13,16 @@ import Text from '../components/Text';
 
 let validationSchema = yup.object().shape({
   email: yup.string().email().required(),
-  password: yup.string().min(4).required(),
+  password: yup.string().min(6).required(),
 });
 
 const RegisterScreen = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const colors = useSelector((state) => state.config.colors);
 
   const register = async (values) => {
+    setLoading(true);
     try {
       await auth().createUserWithEmailAndPassword(
         values.email,
@@ -27,18 +30,13 @@ const RegisterScreen = () => {
       );
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
-        console.log('That email address is already in use!');
-      }
-
-      if (error.code === 'auth/invalid-email') {
-        console.log('That email address is invalid!');
-      }
-
-      console.error(error);
+        setError('Questo indirizzo email è già in uso!');
+      } else if (error.code === 'auth/invalid-email') {
+        setError('Indirizzo email non valido!');
+      } else setError('Impossibile completare la registrazione');
+      setLoading(false);
     }
   };
-
-  // TODO aggiungere visualizzazione errori per utente già registrato o password debole
 
   return (
     <Screen>
@@ -48,6 +46,7 @@ const RegisterScreen = () => {
           <Text>Crea un account per utilizzare l'app</Text>
         </View>
         <View style={styles.containerForm}>
+          {error && <Text style={{color: colors.danger}}>{error}</Text>}
           <Formik
             initialValues={{email: '', password: ''}}
             onSubmit={register}
@@ -59,7 +58,7 @@ const RegisterScreen = () => {
                   autoCorrect={false}
                   name="email"
                   label="email"
-                  placeholder="username@email.com"
+                  placeholder="email@address.com"
                   mode="flat"
                   onChangeText={handleChange('email')}
                   onBlur={handleBlur('email')}
@@ -70,14 +69,17 @@ const RegisterScreen = () => {
                   autoCorrect={false}
                   name="password"
                   label="password"
-                  placeholder="••••••••"
                   mode="flat"
                   onChangeText={handleChange('password')}
                   onBlur={handleBlur('password')}
                   secureTextEntry
                   value={values.password}
                 />
-                <Button name="Register" onPress={handleSubmit} />
+                <Button
+                  disabled={loading}
+                  name="Register"
+                  onPress={handleSubmit}
+                />
               </View>
             )}
           </Formik>
@@ -88,13 +90,6 @@ const RegisterScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  containerAvatar: {
-    margin: 50,
-  },
-  containerHeader: {
-    alignSelf: 'flex-start',
-    marginBottom: 30,
-  },
   container: {
     alignItems: 'center',
     flex: 1,
@@ -102,6 +97,10 @@ const styles = StyleSheet.create({
   },
   containerForm: {
     width: '100%',
+  },
+  containerHeader: {
+    alignSelf: 'flex-start',
+    marginBottom: 30,
   },
   pageTitle: {
     fontSize: 40,

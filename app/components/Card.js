@@ -36,7 +36,9 @@ const MyCard = ({item, onPress}) => {
             <Text numberOfLines={3}>
               {_.get(item, 'title', 'Titolo non disponibile')}
             </Text>
-            <Text style={{fontSize: 15, color: colors.placeholder}}>
+            <Text
+              numberOfLines={1}
+              style={{fontSize: 15, color: colors.placeholder}}>
               {_.get(item, 'author', 'Autore non disponibile')}
             </Text>
           </View>

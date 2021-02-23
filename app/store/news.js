@@ -56,7 +56,7 @@ export const searchNews = (query) => {
   });
 };
 
-//custom middleware fetchData
+//custom middleware for fetching Data
 export const apiMiddleware = ({dispatch}) => (next) => async (action) => {
   if (action.type !== 'apiCallBegan') return next(action);
   dispatch(newsRequested());

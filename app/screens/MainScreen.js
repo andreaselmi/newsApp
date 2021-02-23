@@ -31,6 +31,7 @@ const MainScreen = ({navigation}) => {
         <ListingsArticles
           data={topArticles}
           onRefresh={onRefresh}
+          pullToRefresh
           onPress={openWebView}
         />
       </View>

@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
-
 import {useDispatch} from 'react-redux';
-import {currentUser} from '../store/auth';
 
 //navigators
 import AppNavigator from './AppNavigator';
 import AuthStack from './AuthStack';
+
+//store
+import {setCurrentUser, setNoUser} from '../store/auth';
 
 const Routes = () => {
   const [initializing, setInitializing] = useState(true);
@@ -18,9 +19,9 @@ const Routes = () => {
   function onAuthStateChanged(user) {
     setUser(user);
     if (user) {
-      dispatch(currentUser({email: user.email, uid: user.uid}));
+      dispatch(setCurrentUser({email: user.email, uid: user.uid}));
     } else {
-      dispatch(currentUser(null));
+      dispatch(setNoUser());
     }
     if (initializing) setInitializing(false);
   }

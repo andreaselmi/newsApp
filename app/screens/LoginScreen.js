@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Formik} from 'formik';
 import * as yup from 'yup';
@@ -17,17 +17,23 @@ let validationSchema = yup.object().shape({
 });
 
 const LoginScreen = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const colors = useSelector((state) => state.config.colors);
 
   const login = async (values) => {
+    setLoading(true);
     try {
       await auth().signInWithEmailAndPassword(values.email, values.password);
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      if (error.code === 'auth/user-not-found') {
+        setError('Utente non trovato');
+      } else if (error.code === 'auth/wrong-password') {
+        setError('Password non corretta');
+      } else setError("Impossibile effettuare l'accesso");
+      setLoading(false);
     }
   };
-
-  // TODO aggiungere visualizzazione errori per login non riuscito / errato
 
   return (
     <Screen style={{backgroundColor: colors.backgroundScreen}}>
@@ -40,6 +46,7 @@ const LoginScreen = () => {
           </Text>
         </View>
         <View style={styles.containerForm}>
+          {error && <Text style={{color: colors.danger}}>{error}</Text>}
           <Formik
             initialValues={{email: '', password: ''}}
             onSubmit={login}
@@ -63,7 +70,7 @@ const LoginScreen = () => {
                   name="email"
                   onChangeText={handleChange('email')}
                   onBlur={handleBlur('email')}
-                  placeholder="username@email.com"
+                  placeholder="email@address.com"
                   value={values.email}
                 />
                 <FormField
@@ -80,6 +87,7 @@ const LoginScreen = () => {
                   value={values.password}
                 />
                 <Button
+                  disabled={loading}
                   labelStyle={{letterSpacing: 6}}
                   onPress={handleSubmit}
                   name="Log In"
