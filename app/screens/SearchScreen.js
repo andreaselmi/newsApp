@@ -2,7 +2,6 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {Formik} from 'formik';
-import LottieView from 'lottie-react-native';
 
 //components
 import Screen from '../components/Screen';
@@ -16,8 +15,6 @@ import ListingsArticles from '../components/ListingsArticles';
 const SearchScreen = ({navigation}) => {
   const colors = useSelector((state) => state.config.colors);
   const searchedArticles = useSelector((state) => state.news.searchedArticles);
-  const isLoading = useSelector((state) => state.news.isLoading);
-  const error = useSelector((state) => state.news.error);
   const dispatch = useDispatch();
 
   //TODO aggiungere lunghezza max al titolo
@@ -58,25 +55,8 @@ const SearchScreen = ({navigation}) => {
               Results
             </Text>
           )}
-          {error && (
-            <View style={styles.errorContainer}>
-              <Text>Impossibile caricare le notizie</Text>
-              <Button title="Riprova" onPress={onRefresh} />
-            </View>
-          )}
-          {isLoading ? (
-            <View
-              style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-              <LottieView
-                style={{width: 200, height: 200}}
-                source={require('../assets/animations/loader.json')}
-                autoPlay
-                loop={isLoading}
-              />
-            </View>
-          ) : (
-            <ListingsArticles data={searchedArticles} onPress={openWebView} />
-          )}
+
+          <ListingsArticles data={searchedArticles} onPress={openWebView} />
         </View>
       </View>
     </Screen>
