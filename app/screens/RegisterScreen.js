@@ -1,5 +1,10 @@
 import React, {useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
 import {Formik} from 'formik';
 import * as yup from 'yup';
 import auth from '@react-native-firebase/auth';
@@ -40,51 +45,53 @@ const RegisterScreen = () => {
 
   return (
     <Screen>
-      <View style={styles.container}>
-        <View style={styles.containerHeader}>
-          <Text style={styles.pageTitle}>Registrati</Text>
-          <Text>Crea un account per utilizzare l'app</Text>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.container}>
+          <View style={styles.containerHeader}>
+            <Text style={styles.pageTitle}>Registrati</Text>
+            <Text>Crea un account per utilizzare l'app</Text>
+          </View>
+          <View style={styles.containerForm}>
+            {error && <Text style={{color: colors.danger}}>{error}</Text>}
+            <Formik
+              initialValues={{email: '', password: ''}}
+              onSubmit={register}
+              validationSchema={validationSchema}>
+              {({handleChange, handleBlur, handleSubmit, values}) => (
+                <View>
+                  <FormField
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    name="email"
+                    label="email"
+                    placeholder="email@address.com"
+                    mode="flat"
+                    onChangeText={handleChange('email')}
+                    onBlur={handleBlur('email')}
+                    value={values.email}
+                  />
+                  <FormField
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    name="password"
+                    label="password"
+                    mode="flat"
+                    onChangeText={handleChange('password')}
+                    onBlur={handleBlur('password')}
+                    secureTextEntry
+                    value={values.password}
+                  />
+                  <Button
+                    disabled={loading}
+                    name="Register"
+                    onPress={handleSubmit}
+                  />
+                </View>
+              )}
+            </Formik>
+          </View>
         </View>
-        <View style={styles.containerForm}>
-          {error && <Text style={{color: colors.danger}}>{error}</Text>}
-          <Formik
-            initialValues={{email: '', password: ''}}
-            onSubmit={register}
-            validationSchema={validationSchema}>
-            {({handleChange, handleBlur, handleSubmit, values}) => (
-              <View>
-                <FormField
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  name="email"
-                  label="email"
-                  placeholder="email@address.com"
-                  mode="flat"
-                  onChangeText={handleChange('email')}
-                  onBlur={handleBlur('email')}
-                  value={values.email}
-                />
-                <FormField
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  name="password"
-                  label="password"
-                  mode="flat"
-                  onChangeText={handleChange('password')}
-                  onBlur={handleBlur('password')}
-                  secureTextEntry
-                  value={values.password}
-                />
-                <Button
-                  disabled={loading}
-                  name="Register"
-                  onPress={handleSubmit}
-                />
-              </View>
-            )}
-          </Formik>
-        </View>
-      </View>
+      </TouchableWithoutFeedback>
     </Screen>
   );
 };

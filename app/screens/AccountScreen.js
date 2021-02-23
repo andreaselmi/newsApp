@@ -26,13 +26,13 @@ const AccountScreen = () => {
 
   return (
     <Screen>
-      <AccountItem text={user.email} />
+      <AccountItem text={user ? user.email : 'Account'} />
       <AccountItem
         text="Hai ancora 2 articoli da leggere"
         iconName="chevron-forward"
       />
       <AccountItem
-        text="Hai ancora 2 articoli da leggere"
+        text="Dark Mode"
         toggleValue={isDarkMode}
         switcher={darkModeSwitcher}
       />

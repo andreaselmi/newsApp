@@ -1,23 +1,35 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {
+  Keyboard,
+  StyleSheet,
+  View,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {Formik} from 'formik';
+import * as yup from 'yup';
 
 //components
 import Screen from '../components/Screen';
-import TextInput from '../components/form/TextInput';
 import Text from '../components/Text';
 
 //store
 import {searchNews} from '../store/news';
 import ListingsArticles from '../components/ListingsArticles';
+import FormField from '../components/form/FormField';
+
+let validationSchema = yup.object().shape({
+  search: yup
+    .string()
+    .required('Non puoi effettuare la ricerca se il campo è vuoto'),
+});
 
 const SearchScreen = ({navigation}) => {
   const colors = useSelector((state) => state.config.colors);
   const searchedArticles = useSelector((state) => state.news.searchedArticles);
-  const dispatch = useDispatch();
+  const error = useSelector((state) => state.news.searchNewsError);
 
-  //TODO aggiungere lunghezza max al titolo
+  const dispatch = useDispatch();
 
   const openWebView = (item) => {
     navigation.navigate('WebView', {url: item.url});
@@ -25,40 +37,48 @@ const SearchScreen = ({navigation}) => {
 
   return (
     <Screen>
-      <View style={styles.container}>
-        <Formik
-          initialValues={{search: ''}}
-          onSubmit={(values, {resetForm}) => {
-            dispatch(searchNews(values.search));
-            resetForm();
-          }}>
-          {({handleChange, handleSubmit, values}) => (
-            <TextInput
-              iconColor={colors.placeholder}
-              iconName="search"
-              mode="flat"
-              name="search"
-              placeholder="search"
-              onChangeText={handleChange('search')}
-              value={values.search}
-              onSubmitEditing={handleSubmit}
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.container}>
+          <Formik
+            initialValues={{search: ''}}
+            onSubmit={(values, {resetForm}) => {
+              dispatch(searchNews(values.search));
+              resetForm();
+            }}
+            validationSchema={validationSchema}>
+            {({handleChange, handleSubmit, values}) => (
+              <FormField
+                iconColor={colors.placeholder}
+                iconName="search"
+                mode="flat"
+                name="search"
+                placeholder="Search"
+                onChangeText={handleChange('search')}
+                value={values.search}
+                onSubmitEditing={handleSubmit}
+              />
+            )}
+          </Formik>
+
+          <View style={styles.sectionsContainer}>
+            {Array.isArray(searchedArticles) &&
+              searchedArticles.length === 0 && <Text>Nessun Risultato</Text>}
+            {Array.isArray(searchedArticles) &&
+              searchedArticles.length >= 1 && (
+                <Text
+                  style={[styles.sectionsTitle, {color: colors.placeholder}]}>
+                  Risultati dal mondo
+                </Text>
+              )}
+
+            <ListingsArticles
+              data={searchedArticles}
+              error={error}
+              onPress={openWebView}
             />
-          )}
-        </Formik>
-
-        <View style={styles.sectionsContainer}>
-          {Array.isArray(searchedArticles) && searchedArticles.length === 0 && (
-            <Text>Nessun Risultato</Text>
-          )}
-          {Array.isArray(searchedArticles) && searchedArticles.length >= 1 && (
-            <Text style={[styles.sectionsTitle, {color: colors.placeholder}]}>
-              Results
-            </Text>
-          )}
-
-          <ListingsArticles data={searchedArticles} onPress={openWebView} />
+          </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </Screen>
   );
 };
@@ -70,7 +90,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   sectionsTitle: {
-    fontSize: 36,
+    fontSize: 24,
     fontWeight: 'bold',
   },
 });

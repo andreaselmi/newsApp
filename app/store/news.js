@@ -9,17 +9,18 @@ const newsSlice = createSlice({
     searchedArticles: '',
     savedArticles: [],
     isLoading: false,
-    error: null,
+    loadTopNewsError: null,
+    searchNewsError: null,
   },
   reducers: {
     saveTopNews: (state, action) => {
       state.topArticles = action.payload;
-      state.error = null;
+      state.loadTopNewsError = null;
       state.isLoading = false;
     },
     addSearchedNews: (state, action) => {
       state.searchedArticles = action.payload;
-      state.error = null;
+      state.searchNewsError = null;
       state.isLoading = false;
     },
     toggleSaveArticle: (state, action) => {
@@ -33,8 +34,12 @@ const newsSlice = createSlice({
     newsRequested: (state) => {
       state.isLoading = true;
     },
-    requestFailed: (state, action) => {
-      state.error = action.payload;
+    topNewsRequestFailed: (state, action) => {
+      state.loadTopNewsError = action.payload;
+      state.isLoading = false;
+    },
+    searchNewsRequestFailed: (state, action) => {
+      state.searchNewsError = action.payload;
       state.isLoading = false;
     },
   },
@@ -51,7 +56,7 @@ export const loadTopNews = () => {
     endpoint: '/top-headlines?',
     country: 'IT',
     onSuccess: 'news/saveTopNews',
-    onError: 'news/requestFailed',
+    onError: 'news/topNewsRequestFailed',
   });
 };
 
@@ -60,7 +65,7 @@ export const searchNews = (query) => {
     endpoint: '/everything?q=' + query + '&',
     country: '',
     onSuccess: 'news/addSearchedNews',
-    onError: 'news/requestFailed',
+    onError: 'news/searchNewsRequestFailed',
   });
 };
 
@@ -72,11 +77,12 @@ export const apiMiddleware = ({dispatch}) => (next) => async (action) => {
   dispatch(newsRequested());
 
   const {endpoint, country, onSuccess, onError} = action.payload;
+
   try {
     const response = await api.get(
       endpoint + 'country=' + country + '&apiKey=' + API_KEY,
     );
-
+    console.log(response);
     if (response.status === 200) {
       dispatch({type: onSuccess, payload: response.data.articles});
     } else {

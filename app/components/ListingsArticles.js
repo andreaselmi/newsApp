@@ -7,19 +7,17 @@ import Card from './Card';
 import Text from './Text';
 import Loader from './Loader';
 
-const ListingsArticles = ({data, onRefresh = null, onPress}) => {
+const ListingsArticles = ({data, error, onRefresh = null, onPress}) => {
   const isLoading = useSelector((state) => state.news.isLoading);
-  const error = useSelector((state) => state.news.error);
 
   return (
     <>
-      {error && (
+      {error ? (
         <View style={styles.errorContainer}>
           <Text>Impossibile caricare le notizie</Text>
           {onRefresh && <Button title="Riprova" onPress={onRefresh} />}
         </View>
-      )}
-      {isLoading ? (
+      ) : isLoading ? (
         <Loader isLoading={isLoading} />
       ) : (
         <FlatList
