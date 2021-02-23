@@ -2,6 +2,9 @@ import React, {useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
 
+import {useDispatch} from 'react-redux';
+import {currentUser} from '../store/auth';
+
 //navigators
 import AppNavigator from './AppNavigator';
 import AuthStack from './AuthStack';
@@ -9,16 +12,22 @@ import AuthStack from './AuthStack';
 const Routes = () => {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
+  const dispatch = useDispatch();
 
   // Handle user state changes
   function onAuthStateChanged(user) {
     setUser(user);
+    if (user) {
+      dispatch(currentUser({email: user.email, uid: user.uid}));
+    } else {
+      dispatch(currentUser(null));
+    }
     if (initializing) setInitializing(false);
   }
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
+    return subscriber;
   }, []);
 
   if (initializing) return null;

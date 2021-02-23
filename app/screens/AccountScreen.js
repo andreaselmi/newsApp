@@ -13,6 +13,7 @@ import {toggleDarkMode} from '../store/config';
 
 const AccountScreen = () => {
   const isDarkMode = useSelector((state) => state.config.isDarkMode);
+  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
   const logout = () => {
@@ -25,7 +26,7 @@ const AccountScreen = () => {
 
   return (
     <Screen>
-      <AccountItem text="andreaselmi90@gmail.com" />
+      <AccountItem text={user.email} />
       <AccountItem
         text="Hai ancora 2 articoli da leggere"
         iconName="chevron-forward"

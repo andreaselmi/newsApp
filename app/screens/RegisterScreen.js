@@ -1,14 +1,15 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {Formik} from 'formik';
 import * as yup from 'yup';
 import auth from '@react-native-firebase/auth';
+import {useSelector} from 'react-redux';
 
 //components
 import Screen from '../components/Screen';
 import FormField from '../components/form/FormField';
 import Button from '../components/Button';
-import {useSelector} from 'react-redux';
+import Text from '../components/Text';
 
 let validationSchema = yup.object().shape({
   email: yup.string().email().required(),
@@ -38,15 +39,13 @@ const RegisterScreen = () => {
   };
 
   // TODO aggiungere visualizzazione errori per utente già registrato o password debole
+
   return (
     <Screen>
       <View style={styles.container}>
         <View style={styles.containerHeader}>
           <Text style={styles.pageTitle}>Registrati</Text>
-          <Text>
-            Crea un account per avere la possibilità di salvare gli articoli e
-            leggerli ovunque, anche offline
-          </Text>
+          <Text>Crea un account per utilizzare l'app</Text>
         </View>
         <View style={styles.containerForm}>
           <Formik

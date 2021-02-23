@@ -34,7 +34,10 @@ const LoginScreen = () => {
       <View style={styles.container}>
         <View style={styles.containerHeader}>
           <Text style={styles.pageTitle}>Accedi</Text>
-          <Text>Accedi per visualizzare i tuoi articoli salvati</Text>
+          <Text>
+            Accedi da qualsiasi dispositivo per visualizzare i tuoi articoli da
+            leggere
+          </Text>
         </View>
         <View style={styles.containerForm}>
           <Formik
