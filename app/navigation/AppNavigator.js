@@ -1,13 +1,14 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-
-import AccountScreen from '../screens/AccountScreen';
-import colors from '../config/colors';
-
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import MainStackScreen from './MainStack';
-import SearchScreen from '../screens/SearchScreen';
 import {useSelector} from 'react-redux';
+
+//Screens
+import AccountScreen from '../screens/AccountScreen';
+
+//stacknavigator
+import MainStackNavigator from './MainStack';
+import SearchStackNavigator from '../navigation/SearchStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -40,8 +41,8 @@ const AppNavigator = () => {
           borderTopWidth: 0,
         },
       }}>
-      <Tab.Screen name="TopNews" component={MainStackScreen} />
-      <Tab.Screen name="Cerca" component={SearchScreen} />
+      <Tab.Screen name="TopNews" component={MainStackNavigator} />
+      <Tab.Screen name="Cerca" component={SearchStackNavigator} />
       <Tab.Screen name="Account" component={AccountScreen} />
     </Tab.Navigator>
   );

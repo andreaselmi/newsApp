@@ -1,15 +1,15 @@
 import React, {useEffect} from 'react';
-import {View, StyleSheet, FlatList, RefreshControl, Button} from 'react-native';
+import {View, StyleSheet, Button} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import LottieView from 'lottie-react-native';
 
 //components
 import Screen from '../components/Screen';
-import Card from '../components/Card';
 import Text from '../components/Text';
+import ListingsArticles from '../components/ListingsArticles';
 
 //store middleware
-import {apiCallBegan, loadTopNews} from '../store/news';
+import {loadTopNews} from '../store/news';
 
 const MainScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -25,7 +25,9 @@ const MainScreen = ({navigation}) => {
     dispatch(loadTopNews());
   };
 
-  //TODO creare un component flatlist + Card da inserire qui e nel search screen
+  const openWebView = (item) => {
+    navigation.navigate('WebView', {url: item.url});
+  };
 
   return (
     <Screen>
@@ -47,19 +49,11 @@ const MainScreen = ({navigation}) => {
             />
           </View>
         ) : (
-          <FlatList
-            showsVerticalScrollIndicator={false}
+          <ListingsArticles
             data={topArticles}
-            renderItem={({item}) => (
-              <Card
-                item={item}
-                onPress={() => navigation.navigate('WebView', {url: item.url})}
-              />
-            )}
-            keyExtractor={(item, index) => index.toString()}
-            refreshControl={
-              <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
-            }
+            isLoading={isLoading}
+            onRefresh={onRefresh}
+            onPress={openWebView}
           />
         )}
       </View>

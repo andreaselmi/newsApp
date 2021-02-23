@@ -5,8 +5,9 @@ import {API_KEY} from '@env';
 const newsSlice = createSlice({
   name: 'news',
   initialState: {
-    topArticles: [],
-    searchedArticles: [],
+    topArticles: '',
+    searchedArticles: '',
+    savedArticles: [],
     isLoading: false,
     error: null,
   },

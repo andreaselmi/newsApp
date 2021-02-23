@@ -1,22 +1,24 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import {Text} from 'react-native';
+import {createStackNavigator, HeaderBackButton} from '@react-navigation/stack';
 
 import MainScreen from '../screens/MainScreen';
 import WebViewScreen from '../screens/WebViewScreen';
 import {useSelector} from 'react-redux';
+import SearchScreen from '../screens/SearchScreen';
 
-const MainStack = createStackNavigator();
+const SearchStack = createStackNavigator();
 
-const MainStackNavigator = () => {
+const SearchStackNavigator = ({navigation}) => {
   const colors = useSelector((state) => state.config.colors);
   return (
-    <MainStack.Navigator>
-      <MainStack.Screen
-        name="Main"
-        component={MainScreen}
+    <SearchStack.Navigator>
+      <SearchStack.Screen
+        name="Search"
+        component={SearchScreen}
         options={{headerShown: false}}
       />
-      <MainStack.Screen
+      <SearchStack.Screen
         name="WebView"
         component={WebViewScreen}
         options={{
@@ -28,8 +30,8 @@ const MainStackNavigator = () => {
           headerBackTitle: 'Back',
         }}
       />
-    </MainStack.Navigator>
+    </SearchStack.Navigator>
   );
 };
 
-export default MainStackNavigator;
+export default SearchStackNavigator;
