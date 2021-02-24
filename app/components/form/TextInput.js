@@ -2,20 +2,33 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {TextInput} from 'react-native-paper';
 
-const AppTextInput = ({iconName, iconColor, ...restProps}) => {
+const AppTextInput = ({
+  clearTextButton,
+  clearTextFn = clear,
+  iconName,
+  iconColor,
+  ...restProps
+}) => {
+  //default clear text function
+  clear = () => {
+    _textInput.setNativeProps({text: ''});
+  };
+
   return (
     <TextInput
-      {...restProps}
-      style={styles.textInput}
-      left={
-        iconName ? (
+      left={iconName && <TextInput.Icon name={iconName} color={iconColor} />}
+      ref={(component) => (_textInput = component)}
+      right={
+        clearTextButton && (
           <TextInput.Icon
-            name={iconName} // where <Icon /> is any component from vector-icons or anything else
-            onPress={() => {}}
+            name="close"
+            onPress={clearTextFn}
             color={iconColor}
           />
-        ) : null
+        )
       }
+      style={styles.textInput}
+      {...restProps}
     />
   );
 };

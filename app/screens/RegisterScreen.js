@@ -62,6 +62,7 @@ const RegisterScreen = () => {
                   <FormField
                     autoCapitalize="none"
                     autoCorrect={false}
+                    iconColor={colors.placeholder}
                     name="email"
                     label="email"
                     placeholder="email@address.com"
@@ -73,6 +74,7 @@ const RegisterScreen = () => {
                   <FormField
                     autoCapitalize="none"
                     autoCorrect={false}
+                    iconColor={colors.placeholder}
                     name="password"
                     label="password"
                     mode="flat"

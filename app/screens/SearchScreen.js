@@ -41,12 +41,11 @@ const SearchScreen = ({navigation}) => {
         <View style={styles.container}>
           <Formik
             initialValues={{search: ''}}
-            onSubmit={(values, {resetForm}) => {
+            onSubmit={(values) => {
               dispatch(searchNews(values.search));
-              resetForm();
             }}
             validationSchema={validationSchema}>
-            {({handleChange, handleSubmit, values}) => (
+            {({handleChange, handleSubmit, values, resetForm}) => (
               <FormField
                 iconColor={colors.placeholder}
                 iconName="search"
@@ -56,6 +55,8 @@ const SearchScreen = ({navigation}) => {
                 onChangeText={handleChange('search')}
                 value={values.search}
                 onSubmitEditing={handleSubmit}
+                clearTextButton
+                clearTextFn={resetForm}
               />
             )}
           </Formik>

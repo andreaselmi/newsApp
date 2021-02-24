@@ -70,6 +70,7 @@ const LoginScreen = () => {
                     autoCapitalize="none"
                     error={errors.email && touched.email}
                     errorMessage={errors.email}
+                    iconColor={colors.placeholder}
                     label="email"
                     keyboardType="email-address"
                     mode="flat"
@@ -84,6 +85,7 @@ const LoginScreen = () => {
                     autoCorrect={false}
                     error={errors.password && touched.password}
                     errorMessage={errors.password}
+                    iconColor={colors.placeholder}
                     label="password"
                     mode="flat"
                     name="password"

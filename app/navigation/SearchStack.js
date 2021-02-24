@@ -27,7 +27,7 @@ const SearchStackNavigator = ({navigation}) => {
             backgroundColor: colors.backgroundCardColor,
           },
           headerTintColor: colors.textColor,
-          headerBackTitle: 'Back',
+          headerBackTitle: 'Cerca',
         }}
       />
     </SearchStack.Navigator>

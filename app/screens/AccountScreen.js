@@ -11,9 +11,10 @@ import AccountItem from '../components/AccountItem';
 //config
 import {toggleDarkMode} from '../store/config';
 
-const AccountScreen = () => {
+const AccountScreen = ({navigation}) => {
   const isDarkMode = useSelector((state) => state.config.isDarkMode);
   const user = useSelector((state) => state.auth.user);
+  const savedArticles = useSelector((state) => state.news.savedArticles);
   const dispatch = useDispatch();
 
   const logout = () => {
@@ -24,11 +25,22 @@ const AccountScreen = () => {
     dispatch(toggleDarkMode());
   };
 
+  const checkSavedArticles = () => {
+    if (savedArticles.length === 0) {
+      return 'Non hai articoli da leggere';
+    } else if (savedArticles.length === 1) {
+      return 'Hai 1 articolo da leggere';
+    } else {
+      return `Hai ${savedArticles.length} articoli da leggere`;
+    }
+  };
+
   return (
     <Screen>
       <AccountItem text={user ? user.email : 'Account'} />
       <AccountItem
-        text="Hai ancora 2 articoli da leggere"
+        onPress={() => navigation.navigate('SavedArticles')}
+        text={checkSavedArticles()}
         iconName="chevron-forward"
       />
       <AccountItem

@@ -3,12 +3,10 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
 
-//Screens
-import AccountScreen from '../screens/AccountScreen';
-
 //stacknavigator
 import MainStackNavigator from './MainStack';
-import SearchStackNavigator from '../navigation/SearchStack';
+import SearchStackNavigator from './SearchStack';
+import AccountStackNavigator from './AccountStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -43,7 +41,7 @@ const AppNavigator = () => {
       }}>
       <Tab.Screen name="TopNews" component={MainStackNavigator} />
       <Tab.Screen name="Cerca" component={SearchStackNavigator} />
-      <Tab.Screen name="Account" component={AccountScreen} />
+      <Tab.Screen name="Account" component={AccountStackNavigator} />
     </Tab.Navigator>
   );
 };
