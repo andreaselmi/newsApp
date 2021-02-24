@@ -4,10 +4,10 @@ import _ from 'lodash';
 import {useDispatch, useSelector} from 'react-redux';
 
 //components
-import Text from './Text';
+import Text from '../components/Text';
 
 import {toggleSaveArticle} from '../store/news';
-import ToggleIcon from './ToggleIcon';
+import ToggleIcon from '../components/ToggleIcon';
 
 const MyCard = ({item, onPress}) => {
   //select from store

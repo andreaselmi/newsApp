@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 //components
 import Screen from '../components/Screen';
-import ListingsArticles from '../components/ListingsArticles';
+import ListingsArticles from '../containers/ListingsArticles';
 
 //store middleware
 import {loadTopNews} from '../store/news';

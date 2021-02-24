@@ -15,8 +15,8 @@ import Text from '../components/Text';
 
 //store
 import {searchNews} from '../store/news';
-import ListingsArticles from '../components/ListingsArticles';
-import FormField from '../components/form/FormField';
+import ListingsArticles from '../containers/ListingsArticles';
+import FormField from '../containers/FormField';
 
 let validationSchema = yup.object().shape({
   search: yup
