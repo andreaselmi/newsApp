@@ -4,7 +4,7 @@ import {HelperText} from 'react-native-paper';
 import {useFormikContext} from 'formik';
 
 //components
-import TextInput from '../components/form/TextInput';
+import TextInput from './TextInput';
 
 const FormField = ({name, style, ...restProps}) => {
   const {touched, errors} = useFormikContext();

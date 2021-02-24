@@ -12,7 +12,7 @@ import {useSelector} from 'react-redux';
 
 //components
 import Screen from '../components/Screen';
-import FormField from '../containers/FormField';
+import FormField from '../components/form/FormField';
 import Button from '../components/Button';
 import Text from '../components/Text';
 

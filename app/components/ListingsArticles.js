@@ -4,8 +4,8 @@ import {FlatList, RefreshControl, StyleSheet, View, Button} from 'react-native';
 
 //components
 import Card from './Card';
-import Text from '../components/Text';
-import Loader from '../components/Loader';
+import Text from './Text';
+import Loader from './Loader';
 
 const ListingsArticles = ({data, error, onRefresh = null, onPress}) => {
   const isLoading = useSelector((state) => state.news.isLoading);

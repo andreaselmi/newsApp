@@ -82,7 +82,6 @@ export const apiMiddleware = ({dispatch}) => (next) => async (action) => {
     const response = await api.get(
       endpoint + 'country=' + country + '&apiKey=' + API_KEY,
     );
-    console.log(response);
     if (response.status === 200) {
       dispatch({type: onSuccess, payload: response.data.articles});
     } else {

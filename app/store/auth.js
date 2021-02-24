@@ -1,5 +1,4 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {slice} from 'lodash';
 
 const authSlice = createSlice({
   name: 'auth',
