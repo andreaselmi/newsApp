@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {useDispatch, useSelector} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //components
 import Screen from '../components/Screen';
@@ -21,9 +22,22 @@ const AccountScreen = ({navigation}) => {
     auth().signOut();
   };
 
+  const darkMode = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('darkMode', jsonValue);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const darkModeSwitcher = () => {
     dispatch(toggleDarkMode());
   };
+
+  useEffect(() => {
+    darkMode(isDarkMode);
+  }, [isDarkMode]);
 
   const checkSavedArticles = () => {
     if (savedArticles.length === 0) {

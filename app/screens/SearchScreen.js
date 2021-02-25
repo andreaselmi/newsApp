@@ -47,21 +47,22 @@ const SearchScreen = ({navigation}) => {
             validationSchema={validationSchema}>
             {({handleChange, handleSubmit, values, resetForm}) => (
               <FormField
+                clearTextButton
+                clearTextFn={resetForm}
                 iconColor={colors.placeholder}
                 iconName="search"
                 mode="flat"
                 name="search"
                 placeholder="Search"
                 onChangeText={handleChange('search')}
-                value={values.search}
                 onSubmitEditing={handleSubmit}
-                clearTextButton
-                clearTextFn={resetForm}
+                style={styles.FormField}
+                value={values.search}
               />
             )}
           </Formik>
 
-          <View style={styles.sectionsContainer}>
+          <View style={styles.resultsContainer}>
             {Array.isArray(searchedArticles) &&
               searchedArticles.length === 0 && <Text>Nessun Risultato</Text>}
             {Array.isArray(searchedArticles) &&
@@ -86,7 +87,10 @@ const SearchScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {paddingHorizontal: 20, flex: 1},
-  sectionsContainer: {
+  FormField: {
+    height: 50,
+  },
+  resultsContainer: {
     marginTop: 10,
     flex: 1,
   },
