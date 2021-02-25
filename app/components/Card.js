@@ -1,18 +1,22 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, Image, TouchableOpacity, Alert} from 'react-native';
 import _ from 'lodash';
 import {useDispatch, useSelector} from 'react-redux';
+// import firestore from '@react-native-firebase/firestore';
 
 //components
 import Text from './Text';
-
-import {toggleSaveArticle} from '../store/news';
 import ToggleIcon from './ToggleIcon';
+
+//firestore
+import {storeData, deleteData} from '../firebase/firestore';
+import {toggleSaveArticle} from '../store/news';
 
 const MyCard = ({item, onPress}) => {
   //select from store
   const colors = useSelector((state) => state.config.colors);
   const savedArticles = useSelector((state) => state.news.savedArticles);
+  const user = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
 
   const [isSaved, setIsSaved] = useState(false);
@@ -26,6 +30,18 @@ const MyCard = ({item, onPress}) => {
       setIsSaved(false);
     } else setIsSaved(true);
   }, [savedArticles]);
+
+  const storeArticle = async (item, user) => {
+    dispatch(toggleSaveArticle(item));
+
+    if (!isSaved) {
+      storeData(item, user);
+    }
+
+    if (isSaved) {
+      deleteData(item);
+    }
+  };
 
   return (
     <TouchableOpacity onPress={onPress}>
@@ -50,7 +66,7 @@ const MyCard = ({item, onPress}) => {
             color={colors.primary}
             inactive="bookmark-outline"
             isActive={isSaved}
-            onPress={() => dispatch(toggleSaveArticle(item))}
+            onPress={() => storeArticle(item, user)}
             style={styles.iconContainer}
           />
         </View>

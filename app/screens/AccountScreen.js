@@ -14,7 +14,7 @@ import {toggleDarkMode} from '../store/config';
 
 const AccountScreen = ({navigation}) => {
   const isDarkMode = useSelector((state) => state.config.isDarkMode);
-  const user = useSelector((state) => state.auth.user);
+  const user = useSelector((state) => state.user.currentUser);
   const savedArticles = useSelector((state) => state.news.savedArticles);
   const dispatch = useDispatch();
 
