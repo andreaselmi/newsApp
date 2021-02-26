@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, Image, TouchableOpacity, Alert} from 'react-native';
+import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import _ from 'lodash';
 import {useDispatch, useSelector} from 'react-redux';
 // import firestore from '@react-native-firebase/firestore';

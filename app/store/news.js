@@ -14,14 +14,32 @@ const newsSlice = createSlice({
     searchNewsError: null,
   },
   reducers: {
-    saveTopNews: (state, action) => {
+    addSearchedArticles: (state, action) => {
+      state.searchedArticles = action.payload;
+      state.searchNewsError = null;
+      state.isLoading = false;
+    },
+    clearSavedArticles: (state) => {
+      state.savedArticles = [];
+    },
+    loadSavedArticles: (state, action) => {
+      const alreadySaved = state.savedArticles.findIndex(
+        (article) => article['url'] === action.payload.url,
+      );
+      if (alreadySaved === -1) {
+        state.savedArticles.push(action.payload);
+      } else return state;
+    },
+    newsRequested: (state) => {
+      state.isLoading = true;
+    },
+    saveTopArticles: (state, action) => {
       state.topArticles = action.payload;
       state.loadTopNewsError = null;
       state.isLoading = false;
     },
-    addSearchedNews: (state, action) => {
-      state.searchedArticles = action.payload;
-      state.searchNewsError = null;
+    searchRequestFailed: (state, action) => {
+      state.searchNewsError = action.payload;
       state.isLoading = false;
     },
     toggleSaveArticle: (state, action) => {
@@ -34,27 +52,8 @@ const newsSlice = createSlice({
         state.savedArticles.splice(alreadySaved, 1);
       }
     },
-
-    loadSavedArticles: (state, action) => {
-      const alreadySaved = state.savedArticles.findIndex(
-        (article) => article['url'] === action.payload.url,
-      );
-      if (alreadySaved === -1) {
-        state.savedArticles.push(action.payload);
-      } else return state;
-    },
-    clearSavedArticles: (state) => {
-      state.savedArticles = [];
-    },
-    newsRequested: (state) => {
-      state.isLoading = true;
-    },
-    topNewsRequestFailed: (state, action) => {
+    topArticlesRequestFailed: (state, action) => {
       state.loadTopNewsError = action.payload;
-      state.isLoading = false;
-    },
-    searchNewsRequestFailed: (state, action) => {
-      state.searchNewsError = action.payload;
       state.isLoading = false;
     },
   },
@@ -71,8 +70,8 @@ export const loadTopNews = () => {
   return apiCallBegan({
     endpoint: '/top-headlines?',
     country: 'IT',
-    onSuccess: 'news/saveTopNews',
-    onError: 'news/topNewsRequestFailed',
+    onSuccess: 'news/saveTopArticles',
+    onError: 'news/topArticlesRequestFailed',
   });
 };
 
@@ -80,12 +79,12 @@ export const searchNews = (query) => {
   return apiCallBegan({
     endpoint: '/everything?q=' + query + '&',
     country: '',
-    onSuccess: 'news/addSearchedNews',
-    onError: 'news/searchNewsRequestFailed',
+    onSuccess: 'news/addSearchedArticles',
+    onError: 'news/searchRequestFailed',
   });
 };
 
-export const loadArticles = (user) => {
+export const loadArticlesFromFirestore = (user) => {
   return firestoreCallBegan({
     user,
     collection: 'articles',
@@ -97,7 +96,7 @@ export const loadArticles = (user) => {
 
 const {newsRequested} = newsSlice.actions;
 
-//custom middleware for fetching Data
+//custom middleware for fetching data from api
 export const apiMiddleware = ({dispatch}) => (next) => async (action) => {
   if (action.type !== 'apiCallBegan') return next(action);
   dispatch(newsRequested());
@@ -118,6 +117,7 @@ export const apiMiddleware = ({dispatch}) => (next) => async (action) => {
   }
 };
 
+//middleware for fetching data from firestore
 export const firestoreMiddleware = ({dispatch}) => (next) => (action) => {
   if (action.type !== 'firestoreCallBegan') return next(action);
 

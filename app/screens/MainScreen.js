@@ -7,7 +7,7 @@ import Screen from '../components/Screen';
 import ListingsArticles from '../components/ListingsArticles';
 
 //store middleware
-import {loadTopNews, loadArticles} from '../store/news';
+import {loadTopNews, loadArticlesFromFirestore} from '../store/news';
 import Text from '../components/Text';
 
 const MainScreen = ({navigation}) => {
@@ -22,7 +22,7 @@ const MainScreen = ({navigation}) => {
   }, []);
 
   useEffect(() => {
-    if (user) dispatch(loadArticles(user));
+    if (user) dispatch(loadArticlesFromFirestore(user));
   }, [user]);
 
   const onRefresh = () => {

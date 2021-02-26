@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import Screen from '../components/Screen';
 import ListingsArticles from '../components/ListingsArticles';
 import Text from '../components/Text';
-import {loadArticles} from '../store/news';
+import {loadArticlesFromFirestore} from '../store/news';
 
 const SavedArticlesScreen = ({navigation}) => {
   const savedArticles = useSelector((state) => state.news.savedArticles);
@@ -19,7 +19,7 @@ const SavedArticlesScreen = ({navigation}) => {
   };
 
   const onRefresh = () => {
-    dispatch(loadArticles(user));
+    dispatch(loadArticlesFromFirestore(user));
   };
 
   return (
