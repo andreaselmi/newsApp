@@ -1,17 +1,21 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import IonIcons from 'react-native-vector-icons/Ionicons';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
 //stacknavigator
 import MainStackNavigator from './MainStack';
 import SearchStackNavigator from './SearchStack';
 import AccountStackNavigator from './AccountStack';
+import {loadArticles} from '../store/news';
 
 const Tab = createBottomTabNavigator();
 
 const AppNavigator = () => {
   const colors = useSelector((state) => state.config.colors);
+  const user = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
+
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({

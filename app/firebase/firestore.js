@@ -4,13 +4,14 @@ import firestore from '@react-native-firebase/firestore';
 export const storeData = (item, user) => {
   firestore()
     .collection('articles')
-    .doc(item.publishedAt)
+    .doc(`${item.publishedAt} user id: ${user.uid}`)
     .set({
-      userId: user.uid,
-      title: item.title,
       author: item.author,
-      urlToImage: item.urlToImage,
+      publishedAt: item.publishedAt,
       savedTime: firestore.Timestamp.fromDate(new Date()),
+      title: item.title,
+      userId: user.uid,
+      urlToImage: item.urlToImage,
       url: item.url,
     })
     .then(() => {
@@ -25,10 +26,10 @@ export const storeData = (item, user) => {
     });
 };
 
-export const deleteData = (item) => {
+export const deleteData = (item, user) => {
   firestore()
     .collection('articles')
-    .doc(item.publishedAt)
+    .doc(`${item.publishedAt} user id: ${user.uid}`)
     .delete()
     .then(() => {
       console.log('User deleted!');

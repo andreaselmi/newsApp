@@ -1,18 +1,25 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 //components
 import Screen from '../components/Screen';
 import ListingsArticles from '../components/ListingsArticles';
 import Text from '../components/Text';
+import {loadArticles} from '../store/news';
 
 const SavedArticlesScreen = ({navigation}) => {
   const savedArticles = useSelector((state) => state.news.savedArticles);
+  const user = useSelector((state) => state.user.currentUser);
   const colors = useSelector((state) => state.config.colors);
+  const dispatch = useDispatch();
 
   const openWebView = (item) => {
     navigation.navigate('WebView', {url: item.url});
+  };
+
+  const onRefresh = () => {
+    dispatch(loadArticles(user));
   };
 
   return (
@@ -25,7 +32,12 @@ const SavedArticlesScreen = ({navigation}) => {
             </Text>
           </View>
         )}
-        <ListingsArticles data={savedArticles} onPress={openWebView} />
+        <ListingsArticles
+          data={savedArticles}
+          onPress={openWebView}
+          onRefresh={onRefresh}
+          pullToRefresh
+        />
       </View>
     </Screen>
   );

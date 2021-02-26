@@ -1,6 +1,6 @@
-import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
+import {configureStore} from '@reduxjs/toolkit';
 import reducer from './combineReducers';
-import {apiMiddleware} from './news';
+import {apiMiddleware, firestoreMiddleware} from './news';
 
 export default function () {
   return configureStore({
@@ -8,6 +8,8 @@ export default function () {
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         serializableCheck: false,
-      }).concat(apiMiddleware),
+      })
+        .concat(apiMiddleware)
+        .concat(firestoreMiddleware),
   });
 }

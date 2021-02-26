@@ -36,10 +36,11 @@ const MyCard = ({item, onPress}) => {
 
     if (!isSaved) {
       storeData(item, user);
+      setIsSaved(true);
     }
-
     if (isSaved) {
-      deleteData(item);
+      deleteData(item, user);
+      setIsSaved(false);
     }
   };
 

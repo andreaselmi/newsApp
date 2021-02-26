@@ -1,5 +1,6 @@
 import {createSlice, createAction} from '@reduxjs/toolkit';
 import api from '../api/api';
+import firestore from '@react-native-firebase/firestore';
 import {API_KEY} from '@env';
 
 const newsSlice = createSlice({
@@ -29,7 +30,21 @@ const newsSlice = createSlice({
       );
       if (alreadySaved === -1) {
         state.savedArticles.push(action.payload);
-      } else state.savedArticles.splice(alreadySaved, 1);
+      } else {
+        state.savedArticles.splice(alreadySaved, 1);
+      }
+    },
+
+    loadSavedArticles: (state, action) => {
+      const alreadySaved = state.savedArticles.findIndex(
+        (article) => article['url'] === action.payload.url,
+      );
+      if (alreadySaved === -1) {
+        state.savedArticles.push(action.payload);
+      } else return state;
+    },
+    clearSavedArticles: (state) => {
+      state.savedArticles = [];
     },
     newsRequested: (state) => {
       state.isLoading = true;
@@ -45,11 +60,12 @@ const newsSlice = createSlice({
   },
 });
 
-export const {toggleSaveArticle} = newsSlice.actions;
+export const {toggleSaveArticle, clearSavedArticles} = newsSlice.actions;
 export default newsSlice.reducer;
 
 //actions
 export const apiCallBegan = createAction('apiCallBegan');
+export const firestoreCallBegan = createAction('firestoreCallBegan');
 
 export const loadTopNews = () => {
   return apiCallBegan({
@@ -66,6 +82,16 @@ export const searchNews = (query) => {
     country: '',
     onSuccess: 'news/addSearchedNews',
     onError: 'news/searchNewsRequestFailed',
+  });
+};
+
+export const loadArticles = (user) => {
+  return firestoreCallBegan({
+    user,
+    collection: 'articles',
+    parameter: 'userId',
+    filter: '==',
+    onSuccess: 'news/loadSavedArticles',
   });
 };
 
@@ -90,4 +116,23 @@ export const apiMiddleware = ({dispatch}) => (next) => async (action) => {
   } catch (error) {
     dispatch({type: onError, payload: error});
   }
+};
+
+export const firestoreMiddleware = ({dispatch}) => (next) => (action) => {
+  if (action.type !== 'firestoreCallBegan') return next(action);
+
+  const {user, collection, parameter, filter, onSuccess} = action.payload;
+
+  firestore()
+    .collection(collection)
+    .where(parameter, filter, user.uid)
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((documentSnapshot) => {
+        dispatch({type: onSuccess, payload: documentSnapshot.data()});
+      });
+    })
+    .catch((e) => {
+      console.log('Non è possibile recuperare i dati', e);
+    });
 };

@@ -7,7 +7,7 @@ import Screen from '../components/Screen';
 import ListingsArticles from '../components/ListingsArticles';
 
 //store middleware
-import {loadTopNews} from '../store/news';
+import {loadTopNews, loadArticles} from '../store/news';
 import Text from '../components/Text';
 
 const MainScreen = ({navigation}) => {
@@ -15,10 +15,15 @@ const MainScreen = ({navigation}) => {
   const topArticles = useSelector((state) => state.news.topArticles);
   const colors = useSelector((state) => state.config.colors);
   const error = useSelector((state) => state.news.loadTopNewsError);
+  const user = useSelector((state) => state.user.currentUser);
 
   useEffect(() => {
     dispatch(loadTopNews());
   }, []);
+
+  useEffect(() => {
+    if (user) dispatch(loadArticles(user));
+  }, [user]);
 
   const onRefresh = () => {
     dispatch(loadTopNews());
