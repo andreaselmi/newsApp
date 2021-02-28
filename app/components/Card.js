@@ -2,14 +2,12 @@ import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import _ from 'lodash';
 import {useDispatch, useSelector} from 'react-redux';
-// import firestore from '@react-native-firebase/firestore';
+import firestore from '@react-native-firebase/firestore';
 
 //components
 import Text from './Text';
 import ToggleIcon from './ToggleIcon';
-
-//firestore
-import {storeData, deleteData} from '../firebase/firestore';
+//store
 import {toggleSaveArticle} from '../store/news';
 
 const MyCard = ({item, onPress}) => {
@@ -31,15 +29,42 @@ const MyCard = ({item, onPress}) => {
     } else setIsSaved(true);
   }, [savedArticles]);
 
-  const storeArticle = async (item, user) => {
+  //save data on firebase firestore
+  const storeData = () => {
+    firestore()
+      .collection('articles')
+      .doc(`${item.publishedAt} user id: ${user.uid}`)
+      .set({
+        author: item.author,
+        publishedAt: item.publishedAt,
+        savedTime: firestore.Timestamp.fromDate(new Date()),
+        title: item.title,
+        userId: user.uid,
+        urlToImage: item.urlToImage,
+        url: item.url,
+      })
+      .catch((error) => {
+        console.log("Non è stato possibile salvare l'articolo", error);
+      });
+  };
+
+  //delete data from firebase firestore
+  const deleteData = () => {
+    firestore()
+      .collection('articles')
+      .doc(`${item.publishedAt} user id: ${user.uid}`)
+      .delete();
+  };
+
+  const toggleArticle = async () => {
     dispatch(toggleSaveArticle(item));
 
     if (!isSaved) {
-      storeData(item, user);
+      storeData();
       setIsSaved(true);
     }
     if (isSaved) {
-      deleteData(item, user);
+      deleteData();
       setIsSaved(false);
     }
   };
@@ -67,7 +92,7 @@ const MyCard = ({item, onPress}) => {
             color={colors.primary}
             inactive="bookmark-outline"
             isActive={isSaved}
-            onPress={() => storeArticle(item, user)}
+            onPress={() => toggleArticle()}
             style={styles.iconContainer}
           />
         </View>
