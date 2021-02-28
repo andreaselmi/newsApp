@@ -5,7 +5,6 @@ import {WebView} from 'react-native-webview';
 const WebViewScreen = ({route}) => {
   const {url} = route.params;
 
-  console.log(url);
   return (
     <View style={styles.container}>
       <WebView
