@@ -20,7 +20,7 @@ const AccountStackNavigator = () => {
         name="SavedArticles"
         component={SavedArticlesStackNavigator}
         options={{
-          title: 'Your Articles',
+          title: 'I tuoi Articoli',
           headerStyle: {
             backgroundColor: colors.backgroundCardColor,
             shadowColor: 'transparent',
