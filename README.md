@@ -41,7 +41,8 @@ install on android simulator
 npx react-native run-android
 ```
 
-To deploy the app on your ios device go to the AppDelegate.m file and move [RNSplashScreen show]; immediately after '#if DEBUG'
+To deploy the app on your personal ios device go to the AppDelegate.m file and move '[RNSplashScreen show];' immediately after '#if DEBUG'
+then proceed to deploying from xcode
 
 ```
 ...
