@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -7,6 +7,7 @@ import Screen from '../components/Screen';
 import ListingsArticles from '../components/ListingsArticles';
 import Text from '../components/Text';
 import {loadArticlesFromFirestore} from '../store/news';
+import EmptyScreenPlaceholder from '../components/EmptyScreenPlaceholder';
 
 const SavedArticlesScreen = ({navigation}) => {
   const savedArticles = useSelector((state) => state.news.savedArticles);
@@ -26,11 +27,10 @@ const SavedArticlesScreen = ({navigation}) => {
     <Screen>
       <View style={styles.container}>
         {savedArticles.length === 0 && (
-          <View style={styles.textContainer}>
-            <Text style={[styles.text, {color: colors.placeholder}]}>
-              Non ci sono articoli salvati
-            </Text>
-          </View>
+          <EmptyScreenPlaceholder
+            colors={colors}
+            text="Non ci sono articoli salvati"
+          />
         )}
         <ListingsArticles
           data={savedArticles}

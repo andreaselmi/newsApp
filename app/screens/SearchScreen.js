@@ -4,6 +4,7 @@ import {
   StyleSheet,
   View,
   TouchableWithoutFeedback,
+  ScrollView,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {Formik} from 'formik';
@@ -17,6 +18,7 @@ import Text from '../components/Text';
 import {searchNews} from '../store/news';
 import ListingsArticles from '../components/ListingsArticles';
 import FormField from '../components/form/FormField';
+import EmptyScreenPlaceholder from '../components/EmptyScreenPlaceholder';
 
 let validationSchema = yup.object().shape({
   search: yup
@@ -27,6 +29,7 @@ let validationSchema = yup.object().shape({
 const SearchScreen = ({navigation}) => {
   const colors = useSelector((state) => state.config.colors);
   const searchedArticles = useSelector((state) => state.news.searchedArticles);
+  const isLoading = useSelector((state) => state.news.isLoading);
   const error = useSelector((state) => state.news.searchNewsError);
 
   const dispatch = useDispatch();
@@ -62,6 +65,13 @@ const SearchScreen = ({navigation}) => {
             )}
           </Formik>
 
+          {!searchedArticles && !isLoading && (
+            <EmptyScreenPlaceholder
+              text="Cerca le notizie da tutto il mondo"
+              colors={colors}
+            />
+          )}
+
           <View style={styles.resultsContainer}>
             {Array.isArray(searchedArticles) &&
               searchedArticles.length === 0 && <Text>Nessun Risultato</Text>}
@@ -76,6 +86,7 @@ const SearchScreen = ({navigation}) => {
             <ListingsArticles
               data={searchedArticles}
               error={error}
+              keyboardDismissMode="on-drag"
               onPress={openWebView}
             />
           </View>

@@ -7,7 +7,13 @@ import Card from './Card';
 import Text from './Text';
 import Loader from './Loader';
 
-const ListingsArticles = ({data, error, onRefresh = null, onPress}) => {
+const ListingsArticles = ({
+  data,
+  error,
+  onRefresh = null,
+  onPress,
+  ...restProps
+}) => {
   const isLoading = useSelector((state) => state.news.isLoading);
 
   return (
@@ -32,6 +38,7 @@ const ListingsArticles = ({data, error, onRefresh = null, onPress}) => {
               <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
             )
           }
+          {...restProps}
         />
       )}
     </>
