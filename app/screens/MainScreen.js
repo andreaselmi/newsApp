@@ -1,6 +1,7 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+import {useNetInfo} from '@react-native-community/netinfo';
 
 //components
 import Screen from '../components/Screen';
@@ -9,6 +10,7 @@ import ListingsArticles from '../components/ListingsArticles';
 //store middleware
 import {loadTopNews, loadArticlesFromFirestore} from '../store/news';
 import Text from '../components/Text';
+import OfflineNotice from '../components/OfllineNotice';
 
 const MainScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -35,6 +37,7 @@ const MainScreen = ({navigation}) => {
 
   return (
     <Screen>
+      <OfflineNotice />
       <View style={styles.container}>
         <Text style={[styles.sectionsTitle, {color: colors.placeholder}]}>
           Top News dall'Italia
