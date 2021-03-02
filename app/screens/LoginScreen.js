@@ -8,6 +8,7 @@ import {
 import {Formik} from 'formik';
 import * as yup from 'yup';
 import auth from '@react-native-firebase/auth';
+import IonIcons from 'react-native-vector-icons/Ionicons';
 
 //components
 import Screen from '../components/Screen';
@@ -21,7 +22,7 @@ let validationSchema = yup.object().shape({
   password: yup.string().min(4).required(),
 });
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const colors = useSelector((state) => state.config.colors);
@@ -45,7 +46,12 @@ const LoginScreen = () => {
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.container}>
           <View style={styles.containerHeader}>
+            <TouchableWithoutFeedback
+              onPress={() => navigation.navigate('Welcome')}>
+              <IonIcons name="arrow-back" size={24} color="white" />
+            </TouchableWithoutFeedback>
             <Text style={styles.pageTitle}>Accedi</Text>
+
             <Text>
               Accedi da qualsiasi dispositivo per visualizzare i tuoi articoli
               da leggere
