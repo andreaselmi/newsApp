@@ -27,9 +27,10 @@ let validationSchema = yup.object().shape({
 
 const SearchScreen = ({navigation}) => {
   const colors = useSelector((state) => state.config.colors);
+  const user = useSelector((state) => state.user.currentUser);
   const newsStore = useSelector((state) => state.news);
 
-  const {searchedArticles, isLoading, error} = newsStore;
+  const {searchedArticles, isLoading, error, savedArticles} = newsStore;
   const dispatch = useDispatch();
 
   const openWebView = (item) => {
@@ -82,10 +83,14 @@ const SearchScreen = ({navigation}) => {
               )}
 
             <ListingsArticles
+              colors={colors}
               data={searchedArticles}
               error={error}
               keyboardDismissMode="on-drag"
               onPress={openWebView}
+              refreshing={isLoading}
+              savedItems={savedArticles}
+              user={user}
             />
           </View>
         </View>

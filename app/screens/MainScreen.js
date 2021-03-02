@@ -21,7 +21,6 @@ const MainScreen = ({navigation}) => {
 
   useEffect(() => {
     dispatch(loadTopNews());
-    console.log(newsStore);
   }, []);
 
   useEffect(() => {

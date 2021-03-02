@@ -5,15 +5,9 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import Button from '../components/Button';
 import HeaderImage from '../components/HeaderImage';
-import {clearSavedArticles} from '../store/news';
 
 const WelcomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
-  const savedArticles = useSelector((state) => state.news.savedArticles);
-
-  useEffect(() => {
-    if (savedArticles.length > 0) dispatch(clearSavedArticles());
-  }, []);
 
   return (
     <ImageBackground

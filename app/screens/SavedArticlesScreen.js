@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 //components
 import Screen from '../components/Screen';
 import ListingsArticles from '../components/ListingsArticles';
-import {clearSavedArticles, loadArticlesFromFirestore} from '../store/news';
+import {clearArticles, loadArticlesFromFirestore} from '../store/news';
 import EmptyScreenPlaceholder from '../components/EmptyScreenPlaceholder';
 
 const SavedArticlesScreen = ({navigation}) => {
@@ -21,7 +21,7 @@ const SavedArticlesScreen = ({navigation}) => {
   };
 
   const onRefresh = () => {
-    dispatch(clearSavedArticles());
+    dispatch(clearArticles('saved'));
     dispatch(loadArticlesFromFirestore(user));
   };
 

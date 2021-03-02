@@ -11,6 +11,7 @@ import AccountItem from '../components/AccountItem';
 
 //config
 import {toggleDarkMode} from '../store/config';
+import {clearArticles} from '../store/news';
 
 const AccountScreen = ({navigation}) => {
   const isDarkMode = useSelector((state) => state.config.isDarkMode);
@@ -20,6 +21,7 @@ const AccountScreen = ({navigation}) => {
 
   const logout = () => {
     auth().signOut();
+    dispatch(clearArticles());
   };
 
   const darkMode = async (value) => {

@@ -19,8 +19,16 @@ const newsSlice = createSlice({
       state.searchNewsError = null;
       state.isLoading = false;
     },
-    clearSavedArticles: (state) => {
-      state.savedArticles = [];
+    clearArticles: (state, action) => {
+      if (action.payload === 'saved') {
+        state.savedArticles = [];
+      } else if (action.payload === 'searched') {
+        state.searchedArticles = '';
+      } else {
+        state.savedArticles = [];
+        state.searchedArticles = '';
+        state.topArticles = '';
+      }
     },
     loadSavedArticles: (state, action) => {
       const alreadySaved = state.savedArticles.findIndex(
@@ -59,7 +67,7 @@ const newsSlice = createSlice({
   },
 });
 
-export const {toggleSaveArticle, clearSavedArticles} = newsSlice.actions;
+export const {toggleSaveArticle, clearArticles} = newsSlice.actions;
 export default newsSlice.reducer;
 
 //actions

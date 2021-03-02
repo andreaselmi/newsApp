@@ -7,7 +7,6 @@ import IonIcons from 'react-native-vector-icons/Ionicons';
 import Text from './Text';
 
 const AccountItem = ({text, iconName, onPress, toggleValue, switcher}) => {
-  //select from store
   const colors = useSelector((state) => state.config.colors);
 
   return (
