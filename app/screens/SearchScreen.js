@@ -79,7 +79,7 @@ const SearchScreen = ({navigation}) => {
               searchedArticles.length >= 1 && (
                 <Text
                   style={[styles.sectionsTitle, {color: colors.placeholder}]}>
-                  Risultati dal mondo
+                  Risultati
                 </Text>
               )}
 
