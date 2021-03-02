@@ -17,7 +17,7 @@ API_KEY=YourApiKeyHere
 rename file in .env
 
 Use the package manager [npm](https://www.npmjs.com/) to install dependencies
-run this command in the root folder
+open terminal on the root folder of the project and run this command
 
 ```bash
 npm install
@@ -27,4 +27,34 @@ and for ios
 
 ```bash
 cd ios && pod install && cd ..
+```
+
+## Usage
+
+install on ios simulator
+
+```
+npx react-native run-ios
+```
+
+install on android simulator
+
+```
+npx react-native run-android
+```
+
+To deploy the app on your ios device go to the AppDelegate.m file and move [RNSplashScreen show]; immediately after '#if DEBUG'
+
+```
+...
+- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
+{
+#if DEBUG
+[RNSplashScreen show]; //here
+  return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+#else
+  return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+#endif
+}
+...
 ```
