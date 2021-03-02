@@ -45,10 +45,18 @@ To deploy the app on your ios device go to the AppDelegate.m file and move [RNSp
 
 ```
 ...
+
+  [RNSplashScreen show]; //from here
+
+  return YES;
+...
+
+
+...
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {
 #if DEBUG
-[RNSplashScreen show]; //here
+[RNSplashScreen show]; // to here
   return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
