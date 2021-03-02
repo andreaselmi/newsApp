@@ -4,7 +4,6 @@ import {
   StyleSheet,
   View,
   TouchableWithoutFeedback,
-  ScrollView,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {Formik} from 'formik';
@@ -28,10 +27,9 @@ let validationSchema = yup.object().shape({
 
 const SearchScreen = ({navigation}) => {
   const colors = useSelector((state) => state.config.colors);
-  const searchedArticles = useSelector((state) => state.news.searchedArticles);
-  const isLoading = useSelector((state) => state.news.isLoading);
-  const error = useSelector((state) => state.news.searchNewsError);
+  const newsStore = useSelector((state) => state.news);
 
+  const {searchedArticles, isLoading, error} = newsStore;
   const dispatch = useDispatch();
 
   const openWebView = (item) => {

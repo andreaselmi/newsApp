@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, Image, TouchableOpacity, Alert} from 'react-native';
 import _ from 'lodash';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import firestore from '@react-native-firebase/firestore';
 
 //components
@@ -10,25 +10,20 @@ import ToggleIcon from './ToggleIcon';
 //store
 import {toggleSaveArticle} from '../store/news';
 
-const MyCard = ({item, onPress}) => {
-  //select from store
-  const colors = useSelector((state) => state.config.colors);
-  const savedArticles = useSelector((state) => state.news.savedArticles);
-  const user = useSelector((state) => state.user.currentUser);
+const MyCard = ({colors, item, onPress, savedItems, user}) => {
   const dispatch = useDispatch();
-
   const [isSaved, setIsSaved] = useState(false);
   const {urlToImage} = item;
   const stringUrl = encodeURIComponent(JSON.stringify(item.url));
 
   useEffect(() => {
-    const alreadySaved = savedArticles.findIndex(
+    const alreadySaved = savedItems.findIndex(
       (article) => article['url'] === item.url,
     );
     if (alreadySaved === -1) {
       setIsSaved(false);
     } else setIsSaved(true);
-  }, [savedArticles]);
+  }, [savedItems]);
 
   //save data on firebase firestore
   const storeData = () => {

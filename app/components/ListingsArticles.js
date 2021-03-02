@@ -8,14 +8,16 @@ import Text from './Text';
 import Loader from './Loader';
 
 const ListingsArticles = ({
+  colors,
   data,
   error,
+  refreshing,
+  savedItems,
   onRefresh = null,
   onPress,
+  user,
   ...restProps
 }) => {
-  const isLoading = useSelector((state) => state.news.isLoading);
-
   return (
     <>
       {error ? (
@@ -23,19 +25,25 @@ const ListingsArticles = ({
           <Text>Impossibile caricare le notizie</Text>
           {onRefresh && <Button title="Riprova" onPress={onRefresh} />}
         </View>
-      ) : isLoading ? (
-        <Loader isLoading={isLoading} />
+      ) : refreshing ? (
+        <Loader refreshing={refreshing} />
       ) : (
         <FlatList
           showsVerticalScrollIndicator={false}
           data={data}
           renderItem={({item}) => (
-            <Card item={item} onPress={() => onPress(item)} />
+            <Card
+              colors={colors}
+              item={item}
+              onPress={() => onPress(item)}
+              savedItems={savedItems}
+              user={user}
+            />
           )}
           keyExtractor={(item, index) => index.toString()}
           refreshControl={
             onRefresh && (
-              <RefreshControl refreshing={isLoading} onRefresh={onRefresh} />
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             )
           }
           {...restProps}
