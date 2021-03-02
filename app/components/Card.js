@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, Image, TouchableOpacity, Alert} from 'react-native';
 import _ from 'lodash';
 import {useDispatch, useSelector} from 'react-redux';
 import firestore from '@react-native-firebase/firestore';
@@ -19,6 +19,7 @@ const MyCard = ({item, onPress}) => {
 
   const [isSaved, setIsSaved] = useState(false);
   const {urlToImage} = item;
+  const stringUrl = encodeURIComponent(JSON.stringify(item.url));
 
   useEffect(() => {
     const alreadySaved = savedArticles.findIndex(
@@ -33,7 +34,7 @@ const MyCard = ({item, onPress}) => {
   const storeData = () => {
     firestore()
       .collection('articles')
-      .doc(`${item.publishedAt} user id: ${user.uid}`)
+      .doc(`${stringUrl} user id: ${user.uid}`)
       .set({
         author: item.author,
         publishedAt: item.publishedAt,
@@ -44,7 +45,7 @@ const MyCard = ({item, onPress}) => {
         url: item.url,
       })
       .catch((error) => {
-        console.log("Non è stato possibile salvare l'articolo", error);
+        Alert("Non è stato possibile salvare l'articolo", error);
       });
   };
 
@@ -52,7 +53,7 @@ const MyCard = ({item, onPress}) => {
   const deleteData = () => {
     firestore()
       .collection('articles')
-      .doc(`${item.publishedAt} user id: ${user.uid}`)
+      .doc(`${stringUrl} user id: ${user.uid}`)
       .delete();
   };
 
