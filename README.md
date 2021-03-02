@@ -40,28 +40,3 @@ install on android simulator
 ```
 npx react-native run-android
 ```
-
-To deploy the app on your personal ios device go to the AppDelegate.m file and move '[RNSplashScreen show];' immediately after '#if DEBUG'
-then proceed to deploying from xcode
-
-```
-...
-
-  [RNSplashScreen show]; //from here
-
-  return YES;
-...
-
-
-...
-- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
-{
-#if DEBUG
-[RNSplashScreen show]; // to here
-  return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
-#else
-  return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
-#endif
-}
-...
-```
