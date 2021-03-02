@@ -1,5 +1,3 @@
-# newsApp
-
 # TopNews
 
 TopNews is an ios/android application built with React Native
