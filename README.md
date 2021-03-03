@@ -14,7 +14,7 @@ API_KEY=YourApiKeyHere
 
 rename file in .env
 
-Use the package manager [npm](https://www.npmjs.com/) to install dependencies
+Use the package manager [npm](https://www.npmjs.com/) to install dependencies: 
 open terminal on the root folder of the project and run this command
 
 ```bash
