@@ -139,8 +139,5 @@ export const firestoreMiddleware = ({dispatch}) => (next) => (action) => {
       querySnapshot.forEach((documentSnapshot) => {
         dispatch({type: onSuccess, payload: documentSnapshot.data()});
       });
-    })
-    .catch((e) => {
-      console.log('Non è possibile recuperare i dati', e);
     });
 };
