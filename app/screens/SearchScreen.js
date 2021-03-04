@@ -30,7 +30,12 @@ const SearchScreen = ({navigation}) => {
   const user = useSelector((state) => state.user.currentUser);
   const newsStore = useSelector((state) => state.news);
 
-  const {searchedArticles, isLoading, error, savedArticles} = newsStore;
+  const {
+    searchedArticles,
+    isLoading,
+    searchNewsError,
+    savedArticles,
+  } = newsStore;
   const dispatch = useDispatch();
 
   const openWebView = (item) => {
@@ -64,7 +69,7 @@ const SearchScreen = ({navigation}) => {
             )}
           </Formik>
 
-          {!searchedArticles && !isLoading && (
+          {!searchedArticles && !isLoading && !searchNewsError && (
             <EmptyScreenPlaceholder
               text="Cerca le notizie da tutto il mondo"
               colors={colors}
@@ -85,7 +90,7 @@ const SearchScreen = ({navigation}) => {
             <ListingsArticles
               colors={colors}
               data={searchedArticles}
-              error={error}
+              error={searchNewsError}
               keyboardDismissMode="on-drag"
               onPress={openWebView}
               refreshing={isLoading}

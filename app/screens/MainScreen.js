@@ -17,7 +17,7 @@ const MainScreen = ({navigation}) => {
   const colors = useSelector((state) => state.config.colors);
   const user = useSelector((state) => state.user.currentUser);
 
-  const {topArticles, savedArticles, error, isLoading} = newsStore;
+  const {topArticles, savedArticles, loadTopNewsError, isLoading} = newsStore;
 
   useEffect(() => {
     dispatch(loadTopNews());
@@ -45,7 +45,7 @@ const MainScreen = ({navigation}) => {
         <ListingsArticles
           colors={colors}
           data={topArticles}
-          error={error}
+          error={loadTopNewsError}
           pullToRefresh
           refreshing={isLoading}
           savedItems={savedArticles}
